@@ -11,4 +11,5 @@ Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('
 
 Route::middleware(['auth'])->group(function () {
     Route::view('/profile', 'profile.profile')->name('profile.show');
+    Route::view('/users', 'users.index')->name('user.index');
 });

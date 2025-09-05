@@ -17,5 +17,10 @@
         "sass": "^1.89.2",
         "sass-loader": "^16.0.5",
         "vite": "^7.0.4"
+    },
+    "dependencies": {
+        "alpinejs": "^3.14.9",
+        "sweetalert2": "^11.22.5",
+        "toastr": "^2.1.4"
     }
 }

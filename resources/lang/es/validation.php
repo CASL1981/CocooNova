@@ -146,6 +146,24 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'nombre',
+        'lastname' => 'apellido',
+        'identification' => 'identificación',
+        'area' => 'área',
+        'email' => 'correo electrónico',
+        'password' => 'contraseña',
+        'password_confirmation' => 'confirmación de contraseña',
+        'current_password' => 'contraseña actual',
+        'role_id' => 'rol',
+        'destination' => 'destino',
+        'status' => 'estado',
+        'profile' => 'perfil',
+        'profiles' => 'perfiles',
+        'remember' => 'recordarme',
+        'old_password' => 'contraseña antigua',
+        'new_password' => 'nueva contraseña',
+        'new_password_confirmation' => 'confirmación de nueva contraseña',
+    ],
 
 ];

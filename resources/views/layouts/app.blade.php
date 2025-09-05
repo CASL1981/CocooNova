@@ -9,7 +9,7 @@
     
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/core/libs.min.css') }}" />
@@ -17,13 +17,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/customizer.min.css?v=2.0.0') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/custom.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/rtl.min.css') }}" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/> --}}
 
     @stack('styles')
     <!-- Scripts -->
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
     @livewireStyles
 
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 
 </head>
 <body class="  ">
@@ -49,7 +50,7 @@
                     </div>
                 </div>
                 <!--logo End-->            
-                <h4 class="logo-title" data-setting="app_name">{{ config('app.name') }}</h4>
+                <h4 class="logo-title" >{{ config('app.name') }}</h4>
             </a>
             <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
                 <i class="icon">

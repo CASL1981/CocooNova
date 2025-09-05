@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ config('app.name', 'COCOO NOVA') }}</title>
 
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/loggo.png') }}" />
 
     {{-- Estilos de Qompac UI --}}
     <link rel="stylesheet" href="{{ asset('assets/css/core/libs.min.css') }}">
