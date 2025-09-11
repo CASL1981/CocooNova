@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Livewire;
+
+use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use App\Traits\WithCrudOperations;
+use App\Traits\WithTableOperations;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
@@ -12,38 +15,14 @@ use Livewire\Component;
 class Users extends Component
 {
     use WithPagination;
+    use WithCrudOperations;
+    use WithTableOperations;
 
-    protected $paginationTheme = 'bootstrap';
-    
-    public $identification;
-    
-    public $name, $lastname, $area, $email, $status, $role_id, $destination, $password;
-
-    public $show = false;
-
-    public $selected_id = 0;
-
-    // variables del TRAIT
-    public $bulkDisabled = true;
-    public $selectedModel = [];
-    public $selectAll = false;
-    public $model; //modelo de la tabla
-    public $sortField = 'id', $sortDirection = 'desc'; //variables de ordenamiento
-    public $keyWord;
+    public UserForm $form;
 
     public function hydrate()
     {
         $this->model = 'App\Models\User';
-    }
-
-    public function updatedSelectAll($value)
-    {
-        $value ? $this->selectedModel = $this->model::pluck('id') : $this->selectedModel = [];
-    }
-
-    function method()
-    {
-        return $this->selected_id ? $this->update() : $this->store();
     }
 
     public function render()
@@ -57,29 +36,6 @@ class Users extends Component
         return view('livewire.users.index', compact('users'));
     }
 
-    
-    protected function rules()
-    {
-        return [
-            'identification' => ['required', 'string','min:7', 'max:12',
-                                'regex:/^\\d{7,12}$/',
-                                Rule::unique('users', 'identification')->ignore($this->selected_id)],
-            'name'           => 'required|min:3|max:100',
-            'lastname'       => 'required|min:3|max:100',
-            'email'          => ['required', 'max:100', 'email', Rule::unique('users')->ignore($this->selected_id)],
-            'area'           => 'required|in:Administrativa,Comercial,Farmacia,Financiero',
-            'status'         => 'nullable',
-            'role_id'        => 'nullable',
-            'destination'    => 'nullable',
-        ];
-    }
-
-
-    public function showModal(bool $show = true)
-    {
-        $this->show = $show;
-    }
-
     public function store()
     {     
         // can('user create');
@@ -88,8 +44,7 @@ class Users extends Component
         
 
         $fillable = [
-            // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'password' => Hash::make($this->password ?? 'password'),
+            'password' => Hash::make($this->form->password ?? 'password'),
             'status' => false, // se crea inactivo
         ];
         
@@ -113,14 +68,17 @@ class Users extends Component
 
         $record = User::findOrFail($this->selected_id);
 
-        $this->identification = $record->identification;
-        $this->name = $record->name;
-        $this->lastname = $record->lastname;
-        $this->area = $record->area;
-        $this->email = $record->email;
-        $this->status = $record->status;
-        // $this->role_id = $record->role_id;
-        $this->destination = $record->destination;
+        $this->form->identification = $record->identification;
+        $this->form->name = $record->name;
+        $this->form->lastname = $record->lastname;
+        $this->form->area = $record->area;
+        $this->form->email = $record->email;
+        $this->form->status = $record->status;
+        $this->form->role_id = $record->role_id;
+        $this->form->destination = $record->destination;
+
+        // Asegura que el id actual se pase al form para la validación unique
+        $this->form->selected_id = $record->id;
 
         $this->show = true;
     }
@@ -170,24 +128,6 @@ class Users extends Component
             ]);
             }
         }
-    }
-
-    public function cancel(): void
-    {
-        $this->resetInput();
-    }
-
-    public function closed(): void
-    {
-        $this->cancel();
-        $this->show = false;
-    }
-
-    private function resetInput(): void
-    {
-        $this->resetErrorBag();
-        $this->resetValidation();
-        $this->resetExcept(['model', 'exportable', 'keyWord']);
     }
 
 }

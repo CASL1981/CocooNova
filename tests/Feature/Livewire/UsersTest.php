@@ -16,13 +16,13 @@ class UsersTest extends TestCase
     public function it_can_create_a_user()
     {
         $component = Livewire::test(Users::class)
-            ->set('name', 'Juan')
-            ->set('lastname', 'Pérez')
-            ->set('email', 'juan@example.com')
-            ->set('identification', '12345678')
-            ->set('area', 'Administrativa')
-            ->set('status', 'active')
-            ->set('role_id', 1)
+            ->set('form.name', 'Juan')
+            ->set('form.lastname', 'Pérez')
+            ->set('form.email', 'juan@example.com')
+            ->set('form.identification', '12345678')
+            ->set('form.area', 'Administrativa')
+            ->set('form.status', 'active')
+            ->set('form.role_id', 1)
             ->call('store');
 
         $this->assertDatabaseHas('users', [
@@ -38,13 +38,13 @@ class UsersTest extends TestCase
     public function it_validates_required_fields_on_create()
     {
         $component = Livewire::test(Users::class)
-            ->set('name', '')
-            ->set('lastname', '')
-            ->set('email', '')
-            ->set('identification', '')
+            ->set('form.name', '')
+            ->set('form.lastname', '')
+            ->set('form.email', '')
+            ->set('form.identification', '')
             ->call('store');
 
-        $component->assertHasErrors(['name', 'lastname', 'email', 'identification']);
+        $component->assertHasErrors(['form.name', 'form.lastname', 'form.email', 'form.identification']);
     }
 
     /** @test */
@@ -57,13 +57,13 @@ class UsersTest extends TestCase
         ]);
 
         $component = Livewire::test(Users::class)
-            ->set('name', 'Juan')
-            ->set('lastname', 'Pérez')
-            ->set('email', 'juan@example.com')
-            ->set('identification', '12345678')
+            ->set('form.name', 'Juan')
+            ->set('form.lastname', 'Pérez')
+            ->set('form.email', 'juan@example.com')
+            ->set('form.identification', '12345678')
             ->call('store');
 
-        $component->assertHasErrors(['email', 'identification']);
+        $component->assertHasErrors(['form.email', 'form.identification']);
     }
 
     /** @test */
@@ -90,14 +90,15 @@ class UsersTest extends TestCase
 
         $component = Livewire::test(Users::class)
             ->set('selected_id', $user->id)
-            ->set('identification', '87654321')
-            ->set('name', 'Carlos')
-            ->set('lastname', 'Gómez')
-            ->set('area', 'Administrativa')
-            ->set('email', 'carlos@example.com')
-            ->set('status', 1)
-            ->set('role_id', 2)
-            ->set('destination', 1000)
+            ->set('form.selected_id', $user->id)
+            ->set('form.identification', '87654321')
+            ->set('form.name', 'Carlos')
+            ->set('form.lastname', 'Gómez')
+            ->set('form.area', 'Administrativa')
+            ->set('form.email', 'carlos@example.com')
+            ->set('form.status', 1)
+            ->set('form.role_id', 2)
+            ->set('form.destination', 1000)
             ->call('update');
 
         $this->assertDatabaseHas('users', [
@@ -120,14 +121,14 @@ class UsersTest extends TestCase
     {
         $user = User::factory()->create();
         $component = Livewire::test(Users::class)
-            ->set('selected_id', $user->id)
-            ->set('name', '')
-            ->set('lastname', '')
-            ->set('email', '')
-            ->set('identification', '')
+            ->set('form.selected_id', $user->id)
+            ->set('form.name', '')
+            ->set('form.lastname', '')
+            ->set('form.email', '')
+            ->set('form.identification', '')
             ->call('update');
 
-        $component->assertHasErrors(['name', 'lastname', 'email', 'identification']);
+        $component->assertHasErrors(['form.name', 'form.lastname', 'form.email', 'form.identification']);
     }
 
     /** @test */
@@ -147,7 +148,7 @@ class UsersTest extends TestCase
     public function it_handles_delete_of_nonexistent_user_gracefully()
     {
         $component = Livewire::test(Users::class)
-            ->set('selected_id', 9999)
+            ->set('form.selected_id', 9999)
             ->call('delete');
 
         $component->assertHasNoErrors();
@@ -166,40 +167,40 @@ class UsersTest extends TestCase
             'destination' => 1,
         ];
         Livewire::test(Users::class)
-            ->set('identification', '123') // menos de 7 dígitos
-            ->set('name', $base['name'])
-            ->set('lastname', $base['lastname'])
-            ->set('email', $base['email'])
-            ->set('area', $base['area'])
-            ->set('status', $base['status'])
-            ->set('role_id', $base['role_id'])
-            ->set('destination', $base['destination'])
+            ->set('form.identification', '123') // menos de 7 dígitos
+            ->set('form.name', $base['name'])
+            ->set('form.lastname', $base['lastname'])
+            ->set('form.email', $base['email'])
+            ->set('form.area', $base['area'])
+            ->set('form.status', $base['status'])
+            ->set('form.role_id', $base['role_id'])
+            ->set('form.destination', $base['destination'])
             ->call('store')
-            ->assertHasErrors(['identification']);
+            ->assertHasErrors(['form.identification']);
 
         Livewire::test(Users::class)
-            ->set('identification', '1234567890123') // más de 12 dígitos
-            ->set('name', $base['name'])
-            ->set('lastname', $base['lastname'])
-            ->set('email', 'test2@example.com')
-            ->set('area', $base['area'])
-            ->set('status', $base['status'])
-            ->set('role_id', $base['role_id'])
-            ->set('destination', $base['destination'])
+            ->set('form.identification', '1234567890123') // más de 12 dígitos
+            ->set('form.name', $base['name'])
+            ->set('form.lastname', $base['lastname'])
+            ->set('form.email', 'test2@example.com')
+            ->set('form.area', $base['area'])
+            ->set('form.status', $base['status'])
+            ->set('form.role_id', $base['role_id'])
+            ->set('form.destination', $base['destination'])
             ->call('store')
-            ->assertHasErrors(['identification']);
+            ->assertHasErrors(['form.identification']);
 
         Livewire::test(Users::class)
-            ->set('identification', 'abc123456') // caracteres no numéricos
-            ->set('name', $base['name'])
-            ->set('lastname', $base['lastname'])
-            ->set('email', 'test3@example.com')
-            ->set('area', $base['area'])
-            ->set('status', $base['status'])
-            ->set('role_id', $base['role_id'])
-            ->set('destination', $base['destination'])
+            ->set('form.identification', 'abc123456') // caracteres no numéricos
+            ->set('form.name', $base['name'])
+            ->set('form.lastname', $base['lastname'])
+            ->set('form.email', 'test3@example.com')
+            ->set('form.area', $base['area'])
+            ->set('form.status', $base['status'])
+            ->set('form.role_id', $base['role_id'])
+            ->set('form.destination', $base['destination'])
             ->call('store')
-            ->assertHasErrors(['identification']);
+            ->assertHasErrors(['form.identification']);
     }
 
     /** @test */
@@ -215,16 +216,16 @@ class UsersTest extends TestCase
             'destination' => 1,
         ];
         Livewire::test(Users::class)
-            ->set('identification', $base['identification'])
-            ->set('name', $base['name'])
-            ->set('lastname', $base['lastname'])
-            ->set('email', 'not-an-email')
-            ->set('area', $base['area'])
-            ->set('status', $base['status'])
-            ->set('role_id', $base['role_id'])
-            ->set('destination', $base['destination'])
+            ->set('form.identification', $base['identification'])
+            ->set('form.name', $base['name'])
+            ->set('form.lastname', $base['lastname'])
+            ->set('form.email', 'not-an-email')
+            ->set('form.area', $base['area'])
+            ->set('form.status', $base['status'])
+            ->set('form.role_id', $base['role_id'])
+            ->set('form.destination', $base['destination'])
             ->call('store')
-            ->assertHasErrors(['email']);
+            ->assertHasErrors(['form.email']);
     }
 
     /** @test */
@@ -240,16 +241,16 @@ class UsersTest extends TestCase
             'destination' => 1,
         ];
         Livewire::test(Users::class)
-            ->set('identification', $base['identification'])
-            ->set('name', $base['name'])
-            ->set('lastname', $base['lastname'])
-            ->set('email', $base['email'])
-            ->set('area', 'NoValida')
-            ->set('status', $base['status'])
-            ->set('role_id', $base['role_id'])
-            ->set('destination', $base['destination'])
+            ->set('form.identification', $base['identification'])
+            ->set('form.name', $base['name'])
+            ->set('form.lastname', $base['lastname'])
+            ->set('form.email', $base['email'])
+            ->set('form.area', 'NoValida')
+            ->set('form.status', $base['status'])
+            ->set('form.role_id', $base['role_id'])
+            ->set('form.destination', $base['destination'])
             ->call('store')
-            ->assertHasErrors(['area']);
+            ->assertHasErrors(['form.area']);
     }
 
     /** @test */
