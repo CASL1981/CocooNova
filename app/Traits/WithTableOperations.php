@@ -46,4 +46,26 @@ trait WithTableOperations
     {
         $value ? $this->selectedModel = $this->model::pluck('id') : $this->selectedModel = [];
     }
+
+    /**
+     * Ordena la tabla por el campo especificado.
+     *
+     * @param string $field El campo por el cual ordenar.
+     */
+    public function sortBy($field): void
+    {
+        $this->sortDirection = $this->sortField === $field
+        ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
+        : 'asc';
+
+        $this->sortField = $field;
+    }
+
+    /**
+     * Resetea la paginación al actualizar el término de búsqueda.
+     */
+    public function updatingKeyWord(): void
+    {
+        $this->resetPage();
+    }
 }

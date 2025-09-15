@@ -16,6 +16,17 @@
                                 <h2 class="mb-2 text-center">{{ __("Sign In") }}</h2>
                                 <p class="text-center">Inicia sesión para permanecer conectado</p>
 
+                                <!-- Mostrar errores de validación -->
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
                                 <!-- Formulario de Laravel -->
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf

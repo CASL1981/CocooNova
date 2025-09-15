@@ -22,95 +22,95 @@ class UserSeeder extends Seeder
             'role_id' => 1,
         ]);
 
-        // User::factory()->create([
-        //     "identification"=> 1143365495,
-        //     "name"=> "Ariana",
-        //     "lastname"=> "Cantero Muñoz",
-        //     'email' => 'thcalidad@coodescor.org.co',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 1143365495,
+            "name"=> "Ariana",
+            "lastname"=> "Cantero Muñoz",
+            'email' => 'thcalidad@coodescor.org.co',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 1067912234,
-        //     "name"=> "Estefania",
-        //     "lastname"=> "Bolaño Perez",
-        //     'email' => 'auditoria@coodescor.org.co',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 1067912234,
+            "name"=> "Estefania",
+            "lastname"=> "Bolaño Perez",
+            'email' => 'auditoria@coodescor.org.co',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 50986771,
-        //     "name"=> "Kelly",
-        //     "lastname"=> "Petro Hernandez",
-        //     'email' => 'tesoreria@coodescor.org.co',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 50986771,
+            "name"=> "Kelly",
+            "lastname"=> "Petro Hernandez",
+            'email' => 'tesoreria@coodescor.org.co',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 1067891523,
-        //     "name"=> "Tania",
-        //     "lastname"=> "Martínez Hernandez",
-        //     'email' => 'contratacion@coodescor.org.co',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 1067891523,
+            "name"=> "Tania",
+            "lastname"=> "Martínez Hernandez",
+            'email' => 'contratacion@coodescor.org.co',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 10767468,
-        //     "name"=> "Carlos",
-        //     "lastname"=> "Martínez Almanza",
-        //     'email' => 'auxiliardearchivo@coodescor.org.co',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 10767468,
+            "name"=> "Carlos",
+            "lastname"=> "Martínez Almanza",
+            'email' => 'auxiliardearchivo@coodescor.org.co',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 1067908130,
-        //     "name"=> "Katerin",
-        //     "lastname"=> "Pertuz Jimenez",
-        //     'email' => 'contabilidad1@coodescor.org.co',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 1067908130,
+            "name"=> "Katerin",
+            "lastname"=> "Pertuz Jimenez",
+            'email' => 'contabilidad1@coodescor.org.co',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 1066750361,
-        //     "name"=> "Danilo",
-        //     "lastname"=> "Gómez Calle",
-        //     'email' => 'auxiliarcedis@gmail.com',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 1066750361,
+            "name"=> "Danilo",
+            "lastname"=> "Gómez Calle",
+            'email' => 'auxiliarcedis@gmail.com',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 1067952779,
-        //     "name"=> "Alexandra",
-        //     "lastname"=> "Begambre Pereira",
-        //     'email' => 'asistentedegerencia@coodescor.org.co',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 1067952779,
+            "name"=> "Alexandra",
+            "lastname"=> "Begambre Pereira",
+            'email' => 'asistentedegerencia@coodescor.org.co',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 1064976044,
-        //     "name"=> "Yuliana",
-        //     "lastname"=> "Arcia Rodríguez",
-        //     'email' => 'auxiliarsst.coodescor@gmail.com',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 1064976044,
+            "name"=> "Yuliana",
+            "lastname"=> "Arcia Rodríguez",
+            'email' => 'auxiliarsst.coodescor@gmail.com',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
-        // User::factory()->create([
-        //     "identification"=> 1003399900            ,
-        //     "name"=> "Carlos",
-        //     "lastname"=> "Nuñez Narvaez",
-        //     'email' => 'calidadcoodescor@gmail.com',
-        //     'status' => true,
-        //     'role_id' => 1,
-        // ]);
+        User::factory()->create([
+            "identification"=> 1003399900            ,
+            "name"=> "Carlos",
+            "lastname"=> "Nuñez Narvaez",
+            'email' => 'calidadcoodescor@gmail.com',
+            'status' => true,
+            'role_id' => 1,
+        ]);
 
         // $admin = Role::create(['name' => 'administrador']);
         // $SF = Role::create(['name' => 'Director y Auxiliar SF']);

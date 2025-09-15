@@ -13,16 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory(50)->create();
         
         $this->call([
             UserSeeder::class,
             // Add other seeders here as needed
-        ]);
-
-        // Optionally, you can create additional users for testing
-        // Uncomment the line below to create 50 random users
-        //
-        
-        // User::factory(50)->create();
+        ]);        
     }
 }

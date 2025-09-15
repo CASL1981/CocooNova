@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Livewire\Attributes\On;
+
 trait WithCrudOperations
 {
     /**
@@ -62,4 +64,54 @@ trait WithCrudOperations
         $this->resetExcept(['model', 'exportable', 'keyWord']);
     }
 
+    /**
+     * Cambia el estado del registro seleccionado
+     */
+    #[On('toggleItem')] //escuchamos el evento emitido desde el componente button-toggle
+    public function toggleItem()
+    {
+        // can($this->permissionModel . ' toggle');
+
+        if (count($this->selectedModel)) {
+            //consultamos todos los status y consultamos los modelos de los item seleccionadoa
+            $status = $this->model::whereIn('id', $this->selectedModel)->get('status')->toArray();
+            $record = $this->model::whereIn('id', $this->selectedModel);
+
+            if(!$status || $status[0]['status'] == 'Completed'){
+                $this->resetInput();
+                return $this->dispatch('alert', ['type' => 'warning', 'message' => 'Item Anulado o No se encuentra en estado activo no se puede cambiar']);
+            };
+
+            if($status[0]['status']) {
+
+                $record->update([ 'status' => false ]); //actualizamos los modelos
+
+                $this->selectedModel = []; //limpiamos todos los item seleccionados
+                $this->selectAll = false;
+                return $this->dispatch('alert', ['type' => 'sucess', 'message' => 'Item Inactivo']);
+
+            } else {
+
+                $record->update([ 'status' => true ]);
+                $this->selectedModel = [];
+                $this->selectAll = false;
+                return $this->dispatch('alert', ['type' => 'sucess', 'message' => 'Item Activo']);
+            }
+
+            if($status[0]['status'] === 'Open' && $status[0]['status'] <> 'Completed') {
+
+                $record->update([ 'status' => 'Blocked' ]); //actualizamos los modelos
+
+                $this->selectedModel = []; //limpiamos todos los item seleccionados
+                $this->selectAll = false;
+            } else {
+
+                $record->update([ 'status' => 'Open' ]);
+                $this->selectedModel = [];
+                $this->selectAll = false;
+            }
+        } else {
+            $this->dispatch('alert', ['type' => 'warning', 'message' => 'Selecciona un Item']);
+        }
+    }
 }
