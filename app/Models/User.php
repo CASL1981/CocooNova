@@ -6,11 +6,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Mattiverse\Userstamps\Traits\Userstamps;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    
+    use Userstamps;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -73,6 +78,24 @@ class User extends Authenticatable
     public function QueryTable($keyWord = null, $sortField, $sortDirection): mixed
     {
         return $this->select('id', 'identification', 'name', 'lastname','email', 'area', 'status', 'role_id', 'destination', 'profile_photo_path')
+        ->search('identification', $keyWord)
+        ->search('name', $keyWord)
+        ->search('lastname', $keyWord)
+        ->search('email', $keyWord)
+        ->orderBy($sortField, $sortDirection);
+    }
+
+    /**
+     * Scope a query to only include users of a given type.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|null $keyWord
+     * @param string $sortField
+     * @param string $sortDirection
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function QueryExport($keyWord = null, $sortField, $sortDirection): mixed
+    {
+        return $this->select('identification', 'name', 'lastname', 'email', 'status', 'destination')
         ->search('identification', $keyWord)
         ->search('name', $keyWord)
         ->search('lastname', $keyWord)

@@ -11,6 +11,7 @@ use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class Users extends Component
 {
@@ -20,13 +21,20 @@ class Users extends Component
 
     public UserForm $form;
 
+    //Lista de roles para asignar al usuario
+    public $roles = [];
+
     public function hydrate()
     {
         $this->model = 'App\Models\User';
-    }
+        $this->exportable ='App\Exports\UsersExport';
 
+    }
+    
     public function render()
     {
+        $this->roles = Role::pluck('name', 'id')->toArray();
+        
         $this->bulkDisabled = count($this->selectedModel) < 1;
 
         $users = new User();
@@ -38,7 +46,7 @@ class Users extends Component
 
     public function store()
     {     
-        // can('user create');
+        can('user create');
         
         $validate = $this->validate(); 
         
@@ -51,9 +59,9 @@ class Users extends Component
         $validate = array_merge($validate, $fillable);
         $user = User::create($validate);
         //Asignamos el role seleccinado
-        // $role = Role::find($this->role_id);
-        // $user->assignRole($role->name);
-        // $this->show = false;
+        $role = Role::find($this->form->role_id);
+        $user->assignRole($role->name);
+        $this->show = false;
 
         //reinicamos los campos
         $this->cancel();
@@ -64,7 +72,7 @@ class Users extends Component
 
     public function edit()
     {
-        // can('user update');
+        can('user update');
 
         $record = User::findOrFail($this->selected_id);
 
@@ -85,7 +93,7 @@ class Users extends Component
 
     public function update()
     {
-        // can('user update');
+        can('user update');
         $validate = $this->validate();
         if ($this->selected_id) {
 
@@ -94,10 +102,10 @@ class Users extends Component
             $record->update($validate);
 
             //Asignamos el rol seleccionado
-            // $role = Role::find($this->role_id);
-            // if ($role) {
-            //     $record->syncRoles($role->name);
-            // }
+            $role = Role::find($this->form->role_id);
+            if ($role) {
+                $record->syncRoles($role->name);
+            }
 
             //reiniciamos los campos
             $this->cancel();

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -112,40 +114,42 @@ class UserSeeder extends Seeder
             'role_id' => 1,
         ]);
 
-        // $admin = Role::create(['name' => 'administrador']);
-        // $SF = Role::create(['name' => 'Director y Auxiliar SF']);
+        $admin = Role::create(['name' => 'administrador']);
+        Role::create(['name' => 'Auxiliar Contable']);
+        Role::create(['name' => 'Coordinador TH']);
+        Role::create(['name' => 'Tesoreria']);
 
-        //permissions from the CRUD
+        // permissions from the CRUD
 
-        // $permissions = [
-        //     'create',
-        //     'read',
-        //     'update',
-        //     'delete',
-        //     'toggle'
-        // ];
+        $permissions = [
+            'create',
+            'read',
+            'update',
+            'delete',
+            'toggle'
+        ];
 
-        // $modules = [
-        //     'destination',
-        //     'classification',
-        //     'user',
-        //     'role',
-        // ];
+        $modules = [
+            'destination',
+            'classification',
+            'user',
+            'role',
+        ];
 
-        // foreach($modules as $rol){
-        //     foreach($permissions as $per){
-        //         Permission::create([
-        //             'name' => "{$rol} $per",
-        //             'modelo' => "{$rol}"
-        //         ]);
-        //     }
-        // }
+        foreach($modules as $rol){
+            foreach($permissions as $per){
+                Permission::create([
+                    'name' => "{$rol} $per",
+                    'modelo' => "{$rol}"
+                ]);
+            }
+        }
 
-        //assign the permissions to the role
-        // $admin->syncPermissions(Permission::all());
+        // assign the permissions to the role
+        $admin->syncPermissions(Permission::all());
 
 
-        //assign the role to the user
-        // $administrador->assignRole('administrador');
+        // assign the role to the user
+        $administrador->assignRole('administrador');
     }
 }

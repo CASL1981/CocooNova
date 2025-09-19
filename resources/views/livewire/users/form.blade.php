@@ -29,7 +29,7 @@
         <div class="row mb-7">
             <div class="form-group col-md-3">
                 <x-form.label for="form.role_id" value="{{ __('Role') }}" />
-                <x-form.select wire:model="form.role_id" class="form-control-sm" id="role_id" :options="['1' => 'Administrador']"/>
+                <x-form.select wire:model="form.role_id" class="form-control-sm" id="role_id" :options="$roles"/>
                 <x-form.input-error for="form.role_id" class="mt-2"/>
             </div>
             <div class="form-group col-md-5">

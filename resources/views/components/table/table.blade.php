@@ -1,3 +1,5 @@
+@props(['audit'])
+
 <div class="custom-table-effect table-responsive border rounded">
     <table class="table mb-0">
         <thead>
@@ -13,5 +15,6 @@
         <tbody>
             {{ $slot }}
         </tbody>
+        <x-audit-information wire:model="showauditor" :audit="$audit"></x-audit-information>
     </table>
 </div>

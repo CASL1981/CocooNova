@@ -16,4 +16,4 @@ import Toastr from 'toastr';
 
 window.Alpine = Alpine;
 window.Swal = Swal;
-window.Toastr = Toastr;
+window.toastr = Toastr;
