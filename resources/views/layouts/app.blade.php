@@ -21,6 +21,39 @@
 
     @stack('styles')
     
+    <style>
+        /* Colocar el punto como badge absoluto sobre el icono y un poco más a la izquierda */
+        #notification-drop {
+            position: relative;
+        }
+
+        /* Estilo del badge cuando se activa */
+        .dots.notification-badge-number {
+            position: absolute;
+            top: 6px;               /* ajustar verticalmente */
+            right: -6px;            /* negativo para mover hacia la izquierda sobre el icono */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 14px;
+            height: 14px;
+            padding: 0 2px;
+            font-size: 8px;
+            line-height: 1;
+            border-radius: 999px;
+            color: #fff;
+            background: #dc3545;    /* asegura color rojo */
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.12);
+            transform: none;
+            z-index: 3;
+        }
+
+        /* Ocultar el punto cuando no hay notificaciones */
+        .dots.notification-hidden {
+            display: none !important;
+        }
+    </style>
+
     @livewireStyles
 
     @vite(['resources/js/app.js', 'resources/css/app.css'])
@@ -112,43 +145,67 @@
     @livewireScripts
 
     <script>
-    document.addEventListener('livewire:init', () => {
+        document.addEventListener('livewire:init', () => {
 
-        Livewire.on('alert', (param) => {
-            const type = (param[0]?.type || '').toLowerCase();
-            const message = param[0]?.message || '';
+            Livewire.on('alert', (param) => {
+                const type = (param[0]?.type || '').toLowerCase();
+                const message = param[0]?.message || '';
 
-            toastr.options = {
-                closeButton: true,
-                progressBar: true
-            };
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true
+                };
 
-            const toastrMap = {
-                error: toastr.error,
-                info: toastr.info,
-                warning: toastr.warning,
-                success: toastr.success
-            };
+                const toastrMap = {
+                    error: toastr.error,
+                    info: toastr.info,
+                    warning: toastr.warning,
+                    success: toastr.success
+                };
 
-            (toastrMap[type] || toastr.success)(message);
+                (toastrMap[type] || toastr.success)(message);
+            });
+
+            Livewire.on('destroyItem', (id) => {
+            Swal.fire({
+                title: 'Estas segro?',
+                text: "¡Deseas Eliminar este Item!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Eliminalo!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('deleteItem')
+                }});
+            });
         });
+    </script>
 
-        Livewire.on('destroyItem', (id) => {
-          Swal.fire({
-              title: 'Estas segro?',
-              text: "¡Deseas Eliminar este Item!",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, Eliminalo!'
-              }).then((result) => {
-              if (result.isConfirmed) {
-                  Livewire.dispatch('deleteItem')
-              }});
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const countEl = document.getElementById('notification-count');
+            if (!countEl) {
+                return;
+            }
+
+            const count = parseInt(countEl.textContent || '0', 10);
+            const dot = document.querySelector('#notification-drop .dots');
+
+            if (!dot) {
+                return;
+            }
+
+            if (count > 0) {
+                dot.classList.remove('notification-hidden');
+                dot.classList.add('notification-badge-number');
+                dot.textContent = count > 99 ? '99+' : String(count);
+            } else {
+                dot.classList.add('notification-hidden');
+                dot.textContent = '';
+            }
         });
-    });
-
-  </script>
+    </script>
 </body>
 </html>

@@ -4,9 +4,11 @@ namespace App\Livewire;
 
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use App\Notifications\UserCreatedNotification;
 use App\Traits\WithCrudOperations;
 use App\Traits\WithTableOperations;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
@@ -58,16 +60,19 @@ class Users extends Component
         
         $validate = array_merge($validate, $fillable);
         $user = User::create($validate);
+
         //Asignamos el role seleccinado
         $role = Role::find($this->form->role_id);
         $user->assignRole($role->name);
         $this->show = false;
 
+        // Notificar a los administradores o usuarios específicos
+        $admins = User::where('role_id', 1)->get();// cambiar el 1 por el id del role en la table de configuración del sistema
+        Notification::send($admins, new UserCreatedNotification($user));
+
         //reinicamos los campos
         $this->cancel();
-    	$this->dispatch('alert', [
-            ['type' => 'success', 'message' => 'Usuario creado correctamente.']
-        ]);
+    	$this->dispatch('alert', ['type' => 'success', 'message' => 'Usuario creado correctamente.']);
     }
 
     public function edit()
@@ -94,6 +99,7 @@ class Users extends Component
     public function update()
     {
         can('user update');
+
         $validate = $this->validate();
         if ($this->selected_id) {
 

@@ -48,7 +48,8 @@ class Roles extends Component
      */
     public function store():void
     {
-        // can ('role create');
+        can ('role create');
+
         $this->show = true;
 
         $validate = $this->validate();
@@ -68,6 +69,8 @@ class Roles extends Component
 
     public function edit()
     {
+        can ('role update');
+
         $role = Role::findOrFail($this->selected_id);
         
         $this->name = $role->name;
@@ -77,6 +80,8 @@ class Roles extends Component
 
     public function update()
     {
+        can ('role update');
+
         $validate = $this->validate();
 
         if ($this->selected_id) {
@@ -91,7 +96,7 @@ class Roles extends Component
     #[On('deleteItem')]
     public function delete()
     {
-        // can('role delete');
+        can('role delete');
 
         if ($this->selected_id ) {
             $role = Role::find($this->selected_id);

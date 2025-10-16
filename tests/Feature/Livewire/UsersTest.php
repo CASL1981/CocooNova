@@ -15,6 +15,12 @@ class UsersTest extends TestCase
     /** @test */
     public function it_can_create_a_user()
     {
+    $user = User::factory()->create();
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-create']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user create']);
+    $role->givePermissionTo($permission);
+    $user->assignRole($role);
+    Livewire::actingAs($user);
         $component = Livewire::test(Users::class)
             ->set('form.name', 'Juan')
             ->set('form.lastname', 'Pérez')
@@ -37,6 +43,12 @@ class UsersTest extends TestCase
     /** @test */
     public function it_validates_required_fields_on_create()
     {
+    $user = User::factory()->create();
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-create']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user create']);
+    $role->givePermissionTo($permission);
+    $user->assignRole($role);
+    Livewire::actingAs($user);
         $component = Livewire::test(Users::class)
             ->set('form.name', '')
             ->set('form.lastname', '')
@@ -55,7 +67,12 @@ class UsersTest extends TestCase
             'identification' => '12345678',
             'password' => bcrypt('password123'),
         ]);
-
+    $user = User::factory()->create();
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-create']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user create']);
+    $role->givePermissionTo($permission);
+    $user->assignRole($role);
+    Livewire::actingAs($user);
         $component = Livewire::test(Users::class)
             ->set('form.name', 'Juan')
             ->set('form.lastname', 'Pérez')
@@ -69,9 +86,15 @@ class UsersTest extends TestCase
     /** @test */
     public function it_can_list_users()
     {
+    $user = User::factory()->create();
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-read']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user read']);
+    $role->givePermissionTo($permission);
+    $user->assignRole($role);
+    Livewire::actingAs($user);
         User::factory()->count(3)->create();
         $component = Livewire::test(Users::class);
-        $this->assertCount(3, $component->viewData('users'));
+        $this->assertCount(4, $component->viewData('users'));
     }
 
     /** @test */
@@ -87,7 +110,14 @@ class UsersTest extends TestCase
             'role_id' => 1,
             'destination' => 1,
         ]);
-
+    $admin = User::factory()->create();
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-update']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user update']);
+    $role->givePermissionTo($permission);
+    $admin->assignRole($role);
+    // Creamos un segundo rol para la actualización
+    $role2 = \Spatie\Permission\Models\Role::create(['name' => 'otro-rol']);
+    Livewire::actingAs($admin);
         $component = Livewire::test(Users::class)
             ->set('selected_id', $user->id)
             ->set('form.selected_id', $user->id)
@@ -97,7 +127,7 @@ class UsersTest extends TestCase
             ->set('form.area', 'Administrativa')
             ->set('form.email', 'carlos@example.com')
             ->set('form.status', 1)
-            ->set('form.role_id', 2)
+            ->set('form.role_id', $role2->id)
             ->set('form.destination', 1000)
             ->call('update');
 
@@ -120,6 +150,12 @@ class UsersTest extends TestCase
     public function it_validates_required_fields_on_update()
     {
         $user = User::factory()->create();
+    $admin = User::factory()->create();
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-update']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user update']);
+    $role->givePermissionTo($permission);
+    $admin->assignRole($role);
+    Livewire::actingAs($admin);
         $component = Livewire::test(Users::class)
             ->set('form.selected_id', $user->id)
             ->set('form.name', '')
@@ -135,6 +171,12 @@ class UsersTest extends TestCase
     public function it_can_delete_a_user()
     {
         $user = User::factory()->create();
+    $admin = User::factory()->create();
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-delete']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user delete']);
+    $role->givePermissionTo($permission);
+    $admin->assignRole($role);
+    Livewire::actingAs($admin);
         $component = Livewire::test(Users::class)
             ->set('selected_id', $user->id)
             ->call('delete');
@@ -147,6 +189,12 @@ class UsersTest extends TestCase
     /** @test */
     public function it_handles_delete_of_nonexistent_user_gracefully()
     {
+    $admin = User::factory()->create();
+    $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-delete']);
+    $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user delete']);
+    $role->givePermissionTo($permission);
+    $admin->assignRole($role);
+    Livewire::actingAs($admin);
         $component = Livewire::test(Users::class)
             ->set('form.selected_id', 9999)
             ->call('delete');
@@ -166,6 +214,13 @@ class UsersTest extends TestCase
             'role_id' => 1,
             'destination' => 1,
         ];
+        $user = User::factory()->create();
+        $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-create']);
+        $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user create']);
+        $role->givePermissionTo($permission);
+        $user->assignRole($role);
+        Livewire::actingAs($user);
+
         Livewire::test(Users::class)
             ->set('form.identification', '123') // menos de 7 dígitos
             ->set('form.name', $base['name'])
@@ -215,6 +270,12 @@ class UsersTest extends TestCase
             'role_id' => 1,
             'destination' => 1,
         ];
+        $user = User::factory()->create();
+        $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-create']);
+        $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user create']);
+        $role->givePermissionTo($permission);
+        $user->assignRole($role);
+        Livewire::actingAs($user);
         Livewire::test(Users::class)
             ->set('form.identification', $base['identification'])
             ->set('form.name', $base['name'])
@@ -240,6 +301,12 @@ class UsersTest extends TestCase
             'role_id' => 1,
             'destination' => 1,
         ];
+        $user = User::factory()->create();
+        $role = \Spatie\Permission\Models\Role::create(['name' => 'test-role-create']);
+        $permission = \Spatie\Permission\Models\Permission::create(['name' => 'user create']);
+        $role->givePermissionTo($permission);
+        $user->assignRole($role);
+        Livewire::actingAs($user);
         Livewire::test(Users::class)
             ->set('form.identification', $base['identification'])
             ->set('form.name', $base['name'])

@@ -170,61 +170,35 @@
                 <ul class="p-0 sub-drop dropdown-menu dropdown-menu-end" aria-labelledby="notification-drop">
                         <li class="p-0">
                         <div class="p-3 card-header d-flex justify-content-between bg-primary rounded-top">
-                                <div class="header-title">
-                                <h5 class="mb-0 text-white">All Notifications</h5>
+                            <div class="header-title">
+                                <h5 class="mb-0 text-white">Notificaciones</h5>
                             </div>
+                            @if (auth()->user()->unreadNotifications->count())
+                                <span id="notification-count" class="d-none">{{ auth()->user()->unreadNotifications->count() }}</span>                                
+                            @endif
                         </div>
                         <div class="p-0 card-body all-notification">
-                        <a href="#" class="iq-sub-card">
+                            @forelse (auth()->user()->unreadNotifications as $notification)
+                                <a href="{{ route('notifications.read', $notification->id) }}" class="iq-sub-card">
+                                    <div class="d-flex align-items-center">
+                                        <img class="p-1 avatar-40 rounded-pill bg-primary-subtle" src="./assets/images/shapes/03.png" alt="" loading="lazy">
+                                        <div class="ms-3 w-100">
+                                            <h6 class="mb-0 ">{{ $notification->data['title'] }}</h6>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-0">{{ $notification->data['message'] }}</p>
+                                            <small class="float-end font-size-12">{{ $notification->created_at->diffForHumans() }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            @empty
                             <div class="d-flex align-items-center">
-                                <img class="p-1 avatar-40 rounded-pill bg-primary-subtle" src="./assets/images/shapes/01.png" alt="" loading="lazy">
                                 <div class="ms-3 w-100">
-                                    <h6 class="mb-0 ">Emma Watson Bni</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mb-0">95 MB</p>
-                                    <small class="float-end font-size-12">Just Now</small>
+                                    <small class="font-size-24">No hay notificaciones pendientes</small>
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                        <a href="#" class="iq-sub-card">
-                            <div class="d-flex align-items-center">
-                                <div  >
-                                    <img class="p-1 avatar-40 rounded-pill bg-primary-subtle" src="./assets/images/shapes/02.png" alt="" loading="lazy">
-                                </div>
-                                    <div class="ms-3 w-100">
-                                    <h6 class="mb-0 ">New customer is join</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="mb-0">Cyst Bni</p>
-                                        <small class="float-end font-size-12">5 days ago</small>
-                                    </div>
-                                    </div>
-                            </div>
-                        </a>
-                        <a href="#" class="iq-sub-card">
-                            <div class="d-flex align-items-center">
-                                <img class="p-1 avatar-40 rounded-pill bg-primary-subtle" src="./assets/images/shapes/03.png" alt="" loading="lazy">
-                                <div class="ms-3 w-100">
-                                    <h6 class="mb-0 ">Two customer is left</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mb-0">Cyst Bni</p>
-                                    <small class="float-end font-size-12">2 days ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="iq-sub-card">
-                            <div class="d-flex align-items-center">
-                                <img class="p-1 avatar-40 rounded-pill bg-primary-subtle" src="./assets/images/shapes/04.png" alt="" loading="lazy">
-                                <div class="w-100 ms-3">
-                                    <h6 class="mb-0 ">New Mail from Fenny</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mb-0">Cyst Bni</p>
-                                    <small class="float-end font-size-12">3 days ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                            @endforelse
                         </div>
                     </li>
                 </ul>
