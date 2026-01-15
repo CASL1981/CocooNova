@@ -46,7 +46,7 @@
         <ul class="sub-nav collapse" id="sidebar-special" data-bs-parent="#sidebar-menu">
             <li class="nav-item">
                 @can('user read')
-                    <a class="nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}" href="{{ route('user.index') }}">
+                    <a class="nav-link {{ activeRoute(route('user.index')) }}" href="{{ route('user.index') }}">
                         <i class="icon">
                             <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -54,12 +54,12 @@
                                 </g>
                             </svg>
                         </i>
-                        <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Login" data-bs-placement="right">L</i>
+                        <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Login" data-bs-placement="right">G</i>
                         <span class="item-name">Gestionar</span>
                     </a>                    
                 @endcan
                 @can('role read')
-                    <a class="nav-link {{ request()->routeIs('role.index') ? 'active' : '' }}" href="{{ route('role.index') }}">
+                    <a class="nav-link {{ activeRoute(route('role.index')) }}" href="{{ route('role.index') }}">
                         <i class="icon">
                             <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -107,7 +107,7 @@
     <li><hr class="hr-horizontal"></li>
     <li class="nav-item static-item">
         <a class="nav-link static-item disabled" href="#" tabindex="-1">
-            <span class="default-icon">Elements</span>
+            <span class="default-icon">Configuración</span>
             <span class="mini-icon" data-bs-toggle="tooltip" title="Elements" data-bs-placement="right">-</span>
         </a>
     </li>
@@ -119,7 +119,7 @@
                     <path d="M19.9787 11.9948C19.9787 12.69 20.559 13.2443 21.265 13.2537C21.6615 13.2537 22 13.5262 22 13.9113V16.3258C22 18.3559 20.3075 20 18.2186 20H15.0658C14.7466 20 14.4758 19.7454 14.4758 19.426V17.3967C14.4758 17.0022 14.1567 16.6921 13.7505 16.6921V14.8705C14.1567 14.8705 14.4758 14.5502 14.4758 14.1659V10.4081C14.4758 10.022 14.1567 9.70348 13.7505 9.70348V7.6827C14.1567 7.6827 14.4758 7.36328 14.4758 6.9781V4.57401C14.4758 4.25366 14.7466 4 15.0658 4H18.2186C20.3075 4 22 5.64406 22 7.6733V10.0407C22 10.2286 21.9226 10.4081 21.7872 10.5387C21.6518 10.6702 21.4681 10.7453 21.2747 10.7453C20.559 10.7453 19.9787 11.31 19.9787 11.9948Z" fill="currentColor"></path>
                 </svg>
             </i>
-            <span class="item-name">UI Elements</span>
+            <span class="item-name">App</span>
             <i class="right-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -128,7 +128,7 @@
         </a>
         <ul class="sub-nav collapse" id="ui"  data-parent="#sidebar-menu">
             <li class="nav-item">
-                <a class="nav-link " href="./ui-elements/ui-avatars.html">
+                <a class="nav-link {{ activeRoute(route('setting.general')) }}" href="{{ route('setting.general') }}">
                     <i class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>
@@ -136,8 +136,23 @@
                             </g>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon"> A</i>
-                    <span class="item-name">Avatars</span>
+                    <i class="sidenav-mini-icon">G </i>
+                    <span class="item-name">General</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="sub-nav collapse" id="ui"  data-parent="#sidebar-menu">
+            <li class="nav-item">
+                <a class="nav-link {{ activeRoute(route('setting.costcenter')) }}" href="{{ route('setting.costcenter') }}">
+                    <i class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                            <g>
+                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                            </g>
+                        </svg>
+                    </i>
+                    <i class="sidenav-mini-icon">C </i>
+                    <span class="item-name">Centros Costos</span>
                 </a>
             </li>
         </ul>

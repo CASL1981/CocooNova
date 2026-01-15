@@ -19,7 +19,7 @@
                 </x-slot>
                 @forelse ($roles as $item)
                     <tr>
-                        <td class="p-1 text-center align-middle">
+                        <td class="text-center align-middle">
                             <input type="checkbox" class="form-check-input border border-1 border-primary"
                             wire:model="selectedModel"
                             value="{{ $item->id }}"
@@ -27,8 +27,8 @@
                             wire:change="$dispatch('role_id',{id: {{$item->id}} })"
                             >
                         </td>
-                        <td class="p-1 text-dark">{{ $item->name }}</td>
-                        <td class="p-1 text-dark text-center">{{ $item->count_user }}</td>
+                        <td class="text-dark">{{ $item->name }}</td>
+                        <td class="text-dark text-center">{{ $item->count_user }}</td>
                     </tr>
                 @empty
                     <tr>

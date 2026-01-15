@@ -52,6 +52,10 @@
         .dots.notification-hidden {
             display: none !important;
         }
+
+        td {
+            padding: 0.5rem !important;
+        }
     </style>
 
     @livewireStyles
@@ -107,14 +111,14 @@
         <div class="position-relative iq-banner">
             <x-navbar />
             <!-- Nav Header Component Start -->
-            <div class="iq-navbar-header" style="height: 90px;">
+            <div class="iq-navbar-header" style="height: 15px;">
                 <div class="iq-header-img">
-                    <img src="./assets/images/header/top-header.png" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
-                    <img src="./assets/images/header/top-header1.png" alt="header" class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
-                    <img src="./assets/images/header/top-header2.png" alt="header" class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
-                    <img src="./assets/images/header/top-header3.png" alt="header" class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
-                    <img src="./assets/images/header/top-header4.png" alt="header" class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
-                    <img src="./assets/images/header/top-header5.png" alt="header" class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
+                    <img src="{{ asset('assets/images/header/top-header.png')}}" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
+                    <img src="{{ asset('assets/images/header/top-header1.png')}}" alt="header" class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
+                    <img src="{{ asset('assets/images/header/top-header2.png')}}" alt="header" class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
+                    <img src="{{ asset('assets/images/header/top-header3.png')}}" alt="header" class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
+                    <img src="{{ asset('assets/images/header/top-header4.png')}}" alt="header" class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
+                    <img src="{{ asset('assets/images/header/top-header5.png')}}" alt="header" class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX" loading="lazy">
                 </div>
             </div>
             <!-- Nav Header Component End -->
@@ -166,6 +170,7 @@
                 (toastrMap[type] || toastr.success)(message);
             });
 
+            //evento para validar la eliminación de los registros
             Livewire.on('destroyItem', (id) => {
             Swal.fire({
                 title: 'Estas segro?',
@@ -178,6 +183,22 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.dispatch('deleteItem')
+                }});
+            });
+
+            // evento para validar la duplicación de los registros
+            Livewire.on('duplicarItem', () => {
+            Swal.fire({
+                title: 'Estas segro?',
+                text: "¡Deseas Duplicar este Registro!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Duplicalo!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('doubleItem')
                 }});
             });
         });

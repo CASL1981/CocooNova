@@ -22,11 +22,44 @@ trait WithCrudOperations
     public $model;
 
     /**
+     * Nombre del modelo para mensajes y permisos
+     */
+    public $permissionModel;
+
+    /**
      * Determine the method to call: store or update.
      */
     function method()
     {
         return $this->selected_id ? $this->update() : $this->store();
+    }
+
+    /**
+     * Almacena un nuevo registro en la base de datos
+     */
+    public function store(): void
+    {
+        can($this->permissionModel . ' create');
+
+        $validate = $this->validate();
+
+        $this->model::create($validate);
+
+        $this->resetInput();
+    	$this->dispatch('alert', ['type' => 'success', 'message' => $this->messageModel . ' creada']);
+
+    }
+
+    /**
+     * Actualiza el registro seleccionado en la base de datos
+     */
+    #[On('doubleItem')] //escuchamos el evento emitido desde el layout dashboard
+    public function doubleItem(): void
+    {
+        can($this->permissionModel . ' create');
+
+        $this->edit();
+        $this->store() ;
     }
 
     /**

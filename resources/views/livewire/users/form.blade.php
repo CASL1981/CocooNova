@@ -49,6 +49,5 @@
     <x:slot name="footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cerrar</button>
         <button type="button" class="btn btn-primary" wire:click.prevent="method()">Guardar</button>
-       {{-- <x-button>Guardar</x-button> --}}
     </x:slot>
 </x-confirmation-modal>

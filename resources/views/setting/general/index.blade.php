@@ -1,4 +1,4 @@
-@section('title', 'Usuarios')
+@section('title', 'Configuracion_General')
 
 <x-app-layout>
 

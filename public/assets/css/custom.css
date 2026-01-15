@@ -6,6 +6,13 @@
 * NOTE: This file contains the styling for Template.
 *
 */
+
+td {
+  padding: 0px !important;
+}
+
+
+/** ------------------------------------------------------------ */
 :focus {
   outline: none;
 }
