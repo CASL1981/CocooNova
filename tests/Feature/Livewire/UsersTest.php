@@ -6,13 +6,14 @@ use App\Livewire\Users;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_user()
     {
     $user = User::factory()->create();
@@ -40,7 +41,7 @@ class UsersTest extends TestCase
         $component->assertHasNoErrors();
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_required_fields_on_create()
     {
     $user = User::factory()->create();
@@ -59,7 +60,7 @@ class UsersTest extends TestCase
         $component->assertHasErrors(['form.name', 'form.lastname', 'form.email', 'form.identification']);
     }
 
-    /** @test */
+    #[Test]
     public function it_prevents_duplicate_email_and_identification()
     {
         User::factory()->create([
@@ -83,7 +84,7 @@ class UsersTest extends TestCase
         $component->assertHasErrors(['form.email', 'form.identification']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_list_users()
     {
     $user = User::factory()->create();
@@ -97,7 +98,7 @@ class UsersTest extends TestCase
         $this->assertCount(4, $component->viewData('users'));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_user()
     {
         $user = User::factory()->create([
@@ -146,7 +147,7 @@ class UsersTest extends TestCase
         $component->assertHasNoErrors();
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_required_fields_on_update()
     {
         $user = User::factory()->create();
@@ -167,7 +168,7 @@ class UsersTest extends TestCase
         $component->assertHasErrors(['form.name', 'form.lastname', 'form.email', 'form.identification']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_user()
     {
         $user = User::factory()->create();
@@ -186,7 +187,7 @@ class UsersTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_delete_of_nonexistent_user_gracefully()
     {
     $admin = User::factory()->create();
@@ -202,7 +203,7 @@ class UsersTest extends TestCase
         $component->assertHasNoErrors();
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_identification_length_and_digits()
     {
         $base = [
@@ -258,7 +259,7 @@ class UsersTest extends TestCase
             ->assertHasErrors(['form.identification']);
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_email_format()
     {
         $base = [
@@ -289,7 +290,7 @@ class UsersTest extends TestCase
             ->assertHasErrors(['form.email']);
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_area_value()
     {
         $base = [

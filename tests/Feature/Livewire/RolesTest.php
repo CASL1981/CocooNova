@@ -4,6 +4,7 @@ namespace Tests\Feature\Livewire;
 use App\Livewire\Roles;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -11,7 +12,7 @@ class RolesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_role()
     {
         // Crear usuario y asignar permiso 'role create'
@@ -30,7 +31,7 @@ class RolesTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_list_roles()
     {
         // Role::factory()->count(3)->create();
@@ -43,7 +44,7 @@ class RolesTest extends TestCase
             ->assertSee(Role::first()->description);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_role()
     {
         $role = Role::create(['name' => 'User', 'guard_name' => 'web']);
@@ -67,7 +68,7 @@ class RolesTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_role()
     {
         $role = Role::create(['name' => 'User', 'guard_name' => 'web']);
@@ -88,7 +89,7 @@ class RolesTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_required_fields()
     {
         // Crear usuario y asignar permiso 'role create'
@@ -104,7 +105,7 @@ class RolesTest extends TestCase
             ->assertHasErrors(['name' => 'required']);
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_unique_name()
     {
         Role::create(['name' => 'Unico']);

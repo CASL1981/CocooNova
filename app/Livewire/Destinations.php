@@ -90,4 +90,33 @@ class Destinations extends Component
 
         $this->show = true;
     }
+
+    public function update()
+    {
+        can('destination update');
+        
+        $validate = $this->validate();
+        
+        if ($this->selected_id) {
+            $record = Destination::find($this->selected_id);
+            $record->update($validate);
+            
+            $this->resetInput();
+            $this->dispatch('alert', ['type' => 'success', 'message' => 'Centro de costo actualizado correctamente.']);
+        }
+    }
+
+    public function duplicate()
+    {
+        can('destination create');
+        
+        if ($this->selected_id) {
+            $record = Destination::find($this->selected_id);
+            $newRecord = $record->replicate();
+            $newRecord->name = $record->name . ' (Copia)';
+            $newRecord->save();
+            
+            $this->dispatch('alert', ['type' => 'success', 'message' => 'Centro de costo duplicado correctamente.']);
+        }
+    }
 }
