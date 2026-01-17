@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Setting;
+use App\Models\Characteristic;
 use Illuminate\Database\Seeder;
 
-class SettingSeeder extends Seeder
+class CharacteristicSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Setting::factory()->count(50)->create();
+        Characteristic::factory()->count(20)->create();
     }
 }

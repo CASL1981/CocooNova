@@ -156,6 +156,21 @@
                 </a>
             </li>
         </ul>
+        <ul class="sub-nav collapse" id="ui"  data-parent="#sidebar-menu">
+            <li class="nav-item">
+                <a class="nav-link {{ activeRoute(route('setting.characteristics')) }}" href="{{ route('setting.characteristics') }}">
+                    <i class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                            <g>
+                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                            </g>
+                        </svg>
+                    </i>
+                    <i class="sidenav-mini-icon">C </i>
+                    <span class="item-name">Características</span>
+                </a>
+            </li>
+        </ul>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-widget" role="button" aria-expanded="false" aria-controls="sidebar-widget">
@@ -165,7 +180,7 @@
                     <path d="M15.4303 11.5887L14.2513 12.7367L14.5303 14.3597C14.5783 14.6407 14.4653 14.9177 14.2343 15.0837C14.0053 15.2517 13.7063 15.2727 13.4543 15.1387L11.9993 14.3737L10.5413 15.1397C10.4333 15.1967 10.3153 15.2267 10.1983 15.2267C10.0453 15.2267 9.89434 15.1787 9.76434 15.0847C9.53434 14.9177 9.42134 14.6407 9.46934 14.3597L9.74734 12.7367L8.56834 11.5887C8.36434 11.3907 8.29334 11.0997 8.38134 10.8287C8.47034 10.5587 8.70034 10.3667 8.98134 10.3267L10.6073 10.0897L11.3363 8.61268C11.4633 8.35868 11.7173 8.20068 11.9993 8.20068H12.0013C12.2843 8.20168 12.5383 8.35968 12.6633 8.61368L13.3923 10.0897L15.0213 10.3277C15.2993 10.3667 15.5293 10.5587 15.6173 10.8287C15.7063 11.0997 15.6353 11.3907 15.4303 11.5887Z" fill="currentColor"></path>
                 </svg>
             </i>
-            <span class="item-name">Widgets</span>
+            <span class="item-name">Modulos</span>
             <i class="right-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" class="icon-18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -183,7 +198,7 @@
                         </svg>
                     </i>
                     <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Widget Basic" data-bs-placement="right"> WB </i>
-                    <span class="item-name">Widget Basic</span>
+                    <span class="item-name">Talento Humano</span>
                 </a>
             </li>
         </ul>

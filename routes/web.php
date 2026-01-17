@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\NotificationController;
-use App\Livewire\Auth\Login;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +15,7 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/roles', 'roles.index')->name('role.index')->middleware('canView:role');
     Route::view('/setting/general', 'setting.general.index')->name('setting.general');
     Route::view('/setting/costcenter', 'setting.costcenter.index')->name('setting.costcenter');
+    Route::view('/setting/characteristics', 'setting.characteristics.index')->name('setting.characteristics');
 
     // Notificaciones
     Route::get('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');

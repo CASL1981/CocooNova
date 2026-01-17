@@ -6,26 +6,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Mattiverse\Userstamps\Traits\Userstamps;
 
-class Destination extends Model
+class Characteristic extends Model
 {
-    /** @use HasFactory<\Database\Factories\DestinationFactory> */
+    /** @use HasFactory<\Database\Factories\CharacteristicFactory> */
     use HasFactory;
 
     use Userstamps;
 
-    protected $fillable = ['costcenter', 'name', 'address', 'phone', 'location', 'minimun', 'maximun', 'status'];
+    protected $fillable = ['name', 'FieldName', 'Modelo'];
 
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d h:m:s',
-        'updated_at' => 'datetime:d-m-Y h:m:s',
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:d-m-Y H:m:s',
     ];
 
     public function QueryTable($keyWord, $sortField, $sortDirection): mixed
     {
-        return $this->select(['id', 'costcenter', 'name', 'address', 'phone', 'location', 'minimun', 'maximun', 'status'])
+        return $this->select(['id', 'name', 'FieldName', 'Modelo'])
             ->search('name', $keyWord)
-            ->search('costcenter', $keyWord)
-            ->search('address', $keyWord)
+            ->search('FieldName', $keyWord)
+            ->search('Modelo', $keyWord)
             ->orderBy($sortField, $sortDirection);
     }
 
@@ -37,10 +37,10 @@ class Destination extends Model
      */
     public function QueryExport($keyWord, $sortField, $sortDirection): mixed
     {
-        return $this->select('costcenter', 'name', 'address', 'phone', 'location', 'minimun', 'maximun', 'status')
+        return $this->select(['name', 'FieldName', 'Modelo'])
             ->search('name', $keyWord)
-            ->search('costcenter', $keyWord)
-            ->search('address', $keyWord)
+            ->search('FieldName', $keyWord)
+            ->search('Modelo', $keyWord)
             ->orderBy($sortField, $sortDirection);
     }
 }

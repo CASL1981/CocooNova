@@ -40,7 +40,7 @@
             <div class="form-group col-md-4">
                 <x-form.label for="form.destination" value="{{ __('Destination') }}" />
                 <x-form.select wire:model="form.destination" class="form-control-sm" id="destination"
-                :options="['1' => 'Oficina Principal', '1000' => 'Farmacia Pueblo Nuevo']"/>
+                :options="$destinations"/>
                 <x-form.input-error for="form.destination" class="mt-2"/>
             </div>
         </div>

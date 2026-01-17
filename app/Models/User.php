@@ -13,9 +13,9 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-    
-    use Userstamps;
+
     use HasRoles;
+    use Userstamps;
 
     /**
      * The attributes that are mass assignable.
@@ -49,12 +49,10 @@ class User extends Authenticatable
 
     /**
      * Get the user's full name.
-     *
-     * @return string
      */
     public function getFullNameAttribute(): string
     {
-        return $this->name . ' ' . $this->lastname;
+        return $this->name.' '.$this->lastname;
     }
 
     /**
@@ -69,37 +67,39 @@ class User extends Authenticatable
 
     /**
      * Scope a query to only include users of a given type.
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string|null $keyWord
-     * @param string $sortField
-     * @param string $sortDirection
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string|null  $keyWord
+     * @param  string  $sortField
+     * @param  string  $sortDirection
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function QueryTable($keyWord = null, $sortField, $sortDirection): mixed
+    public function QueryTable($keyWord, $sortField, $sortDirection): mixed
     {
-        return $this->select('id', 'identification', 'name', 'lastname','email', 'area', 'status', 'role_id', 'destination', 'profile_photo_path')
-        ->search('identification', $keyWord)
-        ->search('name', $keyWord)
-        ->search('lastname', $keyWord)
-        ->search('email', $keyWord)
-        ->orderBy($sortField, $sortDirection);
+        return $this->select(['id', 'identification', 'name', 'lastname', 'email', 'area', 'status', 'role_id', 'destination', 'profile_photo_path'])
+            ->search('identification', $keyWord)
+            ->search('name', $keyWord)
+            ->search('lastname', $keyWord)
+            ->search('email', $keyWord)
+            ->orderBy($sortField, $sortDirection);
     }
 
     /**
      * Scope a query to only include users of a given type.
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string|null $keyWord
-     * @param string $sortField
-     * @param string $sortDirection
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string|null  $keyWord
+     * @param  string  $sortField
+     * @param  string  $sortDirection
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function QueryExport($keyWord = null, $sortField, $sortDirection): mixed
+    public function QueryExport($keyWord, $sortField, $sortDirection): mixed
     {
-        return $this->select('identification', 'name', 'lastname', 'email', 'status', 'destination')
-        ->search('identification', $keyWord)
-        ->search('name', $keyWord)
-        ->search('lastname', $keyWord)
-        ->search('email', $keyWord)
-        ->orderBy($sortField, $sortDirection);
+        return $this->select(['identification', 'name', 'lastname', 'email', 'status', 'destination'])
+            ->search('identification', $keyWord)
+            ->search('name', $keyWord)
+            ->search('lastname', $keyWord)
+            ->search('email', $keyWord)
+            ->orderBy($sortField, $sortDirection);
     }
 }

@@ -27,11 +27,11 @@ trait WithTableOperations
      */
     public $selectAll = false;
 
-    /** 
+    /**
      * Variables para el ordenamiento de la tabla
      */
     public $sortField = 'id';
-    
+
     /**
      * Determine la dirección del ordenamiento: asc o desc.
      */
@@ -62,7 +62,7 @@ trait WithTableOperations
     /**
      * Ordena la tabla por el campo especificado.
      *
-     * @param string $field El campo por el cual ordenar.
+     * @param  string  $field  El campo por el cual ordenar.
      */
     public function sortBy($field): void
     {
@@ -84,23 +84,22 @@ trait WithTableOperations
     /**
      * Exporta los datos en el formato especificado (csv, xlsx, pdf).
      *
-     * @param string $ext La extensión del archivo de exportación.
+     * @param  string  $ext  La extensión del archivo de exportación.
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function export($ext)
     {
-        abort_if(!in_array($ext, ['csv', 'xlsx', 'pdf']), Response::HTTP_NOT_FOUND);
+        abort_if(! in_array($ext, ['csv', 'xlsx', 'pdf']), Response::HTTP_NOT_FOUND);
 
         $query = new $this->model;
-        
+
         $query = $query->QueryExport($this->keyWord, $this->sortField, $this->sortDirection)->get();
-        
-        return Excel::download(new $this->exportable(), 'filename.' . $ext);
+
+        return Excel::download(new $this->exportable($query), 'filename.'.$ext);
     }
 
     /**
      * devolvemos el modal de auditoria con los datos del registro seleccionado
-     * @return void
      */
     public function auditoria(): void
     {
@@ -110,13 +109,14 @@ trait WithTableOperations
             $this->audit = $this->model::with(['creator', 'editor'])->find($this->selected_id)->toArray();
 
             $this->showauditor = true;
-        } else {            
+        } else {
             $this->dispatch('alert', ['type' => 'warning', 'message' => 'Selecciona un registros']);
         }
     }
 
     /**
      * cerramos el modal de auditoria
+     *
      * @return void
      */
     public function showaudit()
