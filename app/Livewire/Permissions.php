@@ -49,7 +49,7 @@ class Permissions extends Component
     }
 
     #[On('role_id')]
-    public function selectdId($id)
+    public function selectdId($id): void
     {
         $this->selected_id = $id;
         $this->render();

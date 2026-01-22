@@ -26,6 +26,7 @@
                             wire:model="selectedModel"
                             value="{{ $item->id }}"
                             wire:click="$set('selected_id',{{ $item->id }})"
+                            wire:change="$dispatch('characteristic_id',{id: {{$item->id}} })"
                             >
                         </td>
                         <td>{{ $item->id }}</td>

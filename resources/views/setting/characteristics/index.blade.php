@@ -6,7 +6,7 @@
             @livewire('characteristics')
         </div>
         <div class="col-md-7">
-            
+            @livewire('detail-characteristics')
         </div>
     </div>
     

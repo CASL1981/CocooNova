@@ -14,7 +14,7 @@ trait WithCrudOperations
     /**
      * Identificador del registro seleccionado (para editar o eliminar)
      */
-    public $selected_id = 0;
+    public $selected_id = null;
 
     /**
      * Nombre del modelo asociado a la tabla
@@ -29,7 +29,7 @@ trait WithCrudOperations
     /**
      * Determine the method to call: store or update.
      */
-    function method()
+    public function method()
     {
         return $this->selected_id ? $this->update() : $this->store();
     }
@@ -39,33 +39,33 @@ trait WithCrudOperations
      */
     public function store(): void
     {
-        can($this->permissionModel . ' create');
+        can($this->permissionModel.' create');
 
         $validate = $this->validate();
 
         $this->model::create($validate);
 
         $this->resetInput();
-    	$this->dispatch('alert', ['type' => 'success', 'message' => $this->messageModel . ' creada']);
+        $this->dispatch('alert', ['type' => 'success', 'message' => $this->messageModel.' creada']);
 
     }
 
     /**
      * Actualiza el registro seleccionado en la base de datos
      */
-    #[On('doubleItem')] //escuchamos el evento emitido desde el layout dashboard
+    #[On('doubleItem')] // escuchamos el evento emitido desde el layout dashboard
     public function doubleItem(): void
     {
-        can($this->permissionModel . ' create');
+        can($this->permissionModel.' create');
 
         $this->edit();
-        $this->store() ;
+        $this->store();
     }
 
     /**
      * Muestra u oculta el modal
      */
-    public function showModal(bool $show = true):void
+    public function showModal(bool $show = true): void
     {
         $this->show = $show;
     }
@@ -77,7 +77,7 @@ trait WithCrudOperations
     {
         $this->resetInput();
     }
-    
+
     /**
      * Cierra el modal y reinicia los campos del formulario
      */
@@ -100,46 +100,48 @@ trait WithCrudOperations
     /**
      * Cambia el estado del registro seleccionado
      */
-    #[On('toggleItem')] //escuchamos el evento emitido desde el componente button-toggle
+    #[On('toggleItem')] // escuchamos el evento emitido desde el componente button-toggle
     public function toggleItem()
     {
         // can($this->permissionModel . ' toggle');
 
         if (count($this->selectedModel)) {
-            //consultamos todos los status y consultamos los modelos de los item seleccionadoa
+            // consultamos todos los status y consultamos los modelos de los item seleccionadoa
             $status = $this->model::whereIn('id', $this->selectedModel)->get('status')->toArray();
             $record = $this->model::whereIn('id', $this->selectedModel);
 
-            if(!$status || $status[0]['status'] == 'Completed'){
+            if (! $status || $status[0]['status'] === 'Completed') {
                 $this->resetInput();
                 return $this->dispatch('alert', ['type' => 'warning', 'message' => 'Item Anulado o No se encuentra en estado activo no se puede cambiar']);
-            };
+            }
 
-            if($status[0]['status']) {
+            if ($status[0]['status']) {
 
-                $record->update([ 'status' => false ]); //actualizamos los modelos
+                $record->update(['status' => false]); // actualizamos los modelos
 
-                $this->selectedModel = []; //limpiamos todos los item seleccionados
+                $this->selectedModel = []; // limpiamos todos los item seleccionados
                 $this->selectAll = false;
+
                 return $this->dispatch('alert', ['type' => 'sucess', 'message' => 'Item Inactivo']);
 
             } else {
 
-                $record->update([ 'status' => true ]);
+                $record->update(['status' => true]);
                 $this->selectedModel = [];
                 $this->selectAll = false;
+
                 return $this->dispatch('alert', ['type' => 'sucess', 'message' => 'Item Activo']);
             }
 
-            if($status[0]['status'] === 'Open' && $status[0]['status'] <> 'Completed') {
+            if ($status[0]['status'] === 'Open' && $status[0]['status'] != 'Completed') {
 
-                $record->update([ 'status' => 'Blocked' ]); //actualizamos los modelos
+                $record->update(['status' => 'Blocked']); // actualizamos los modelos
 
-                $this->selectedModel = []; //limpiamos todos los item seleccionados
+                $this->selectedModel = []; // limpiamos todos los item seleccionados
                 $this->selectAll = false;
             } else {
 
-                $record->update([ 'status' => 'Open' ]);
+                $record->update(['status' => 'Open']);
                 $this->selectedModel = [];
                 $this->selectAll = false;
             }

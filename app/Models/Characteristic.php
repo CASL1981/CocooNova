@@ -43,4 +43,9 @@ class Characteristic extends Model
             ->search('Modelo', $keyWord)
             ->orderBy($sortField, $sortDirection);
     }
+
+    public function characteristicDetails()
+    {
+        return $this->hasMany(CharacteristicDetail::class);
+    }
 }

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DestinationSeeder::class,
             CharacteristicSeeder::class,
+            CharacteristicDetailSeeder::class,
         ]);
     }
 }

@@ -33,9 +33,22 @@ class Characteristics extends Component
 
         $characteristics = new Characteristic;
 
-        $characteristics = $characteristics->QueryTable($this->keyWord, $this->sortField, $this->sortDirection)->paginate(10);
+        $characteristics = $characteristics->QueryTable($this->keyWord, $this->sortField, $this->sortDirection)->paginate(10);       
 
         return view('livewire.characteristics.index', compact('characteristics'));
+    }
+
+    public function toggleSelection($id)
+    {
+        if ($this->selected_id == $id) {
+            $this->selected_id = null;
+            $this->selectedModel = [];
+            $this->dispatch('characteristic_id', ['id' => null]);
+        } else {
+            $this->selected_id = $id;
+            $this->selectedModel = [$id];
+            $this->dispatch('characteristic_id', ['id' => $id]);
+        }
     }
 
     /**

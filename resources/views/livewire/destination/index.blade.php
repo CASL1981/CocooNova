@@ -22,10 +22,10 @@
                     <x-table.th field="name">Descripción</x-table.th>
                     <x-table.th field="address">Dirección</x-table.th>
                     <x-table.th field="phone">Telefono</x-table.th>
-                    <x-table.th field="location">Ubicación</x-table.th>
-                    <x-table.th field="minimun">Minimo</x-table.th>
-                    <x-table.th field="maximun">Maximo</x-table.th>
-                    <x-table.th field="status">Estado</x-table.th>
+                    <x-table.th class="text-center" field="location">Ubicación</x-table.th>
+                    <x-table.th class="text-center" field="minimun">Minimo</x-table.th>
+                    <x-table.th class="text-center" field="maximun">Maximo</x-table.th>
+                    <x-table.th class="text-center" field="status">Estado</x-table.th>
                 </x-slot>
                 @forelse ($destinations as $key => $item)
                     <tr>
@@ -40,10 +40,10 @@
                         <td>{{ $item->costcenter }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->address }}</td>
-                        <td>{{ $item->phone }}</td>
-                        <td>{{ $item->location }}</td>
-                        <td>{{ $item->minimun }}</td>
-                        <td>{{ $item->maximun }}</td>
+                        <td class="text-end">{{ $item->phone }}</td>
+                        <td class="text-center">{{ $item->location }}</td>
+                        <td class="text-center">{{ $item->minimun }}</td>
+                        <td class="text-center">{{ $item->maximun }}</td>
                         <td class="text-center align-middle">
                             <span class=" {{ $item->status ? 'badge bg-primary' : 'badge bg-danger'}}">{{ $item->status ? 'Activo' : 'Inactivo' }}</span>
                         </td>

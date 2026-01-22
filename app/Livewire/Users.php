@@ -127,7 +127,7 @@ class Users extends Component
     #[On('deleteItem')]
     public function delete(): void
     {
-        // can('role delete');
+        can('user delete');
 
         if ($this->selected_id) {
             $user = User::find($this->selected_id);

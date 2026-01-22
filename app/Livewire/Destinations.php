@@ -10,30 +10,62 @@ use Livewire\WithPagination;
 
 class Destinations extends Component
 {
-    use WithPagination;
     use WithCrudOperations;
+    use WithPagination;
     use WithTableOperations;
 
-    public $costcenter, $name, $address, $phone, $location, $minimun, $maximun, $status;
+    public $costcenter;
+
+    public $name;
+
+    public $address;
+
+    public $phone;
+
+    public $location;
+
+    public $minimun;
+
+    public $maximun;
+
+    public $status;
+
+    public $initialized = false;
 
     public function hydrate(): void
     {
         $this->permissionModel = 'destination';
         $this->model = 'App\Models\Destination';
-        $this->exportable ='App\Exports\DestinationsExport';
+        $this->exportable = 'App\Exports\DestinationsExport';
 
+        // $this->initialized = false;
     }
 
     public function render()
     {
         $this->bulkDisabled = count($this->selectedModel) < 1;
 
-        $destinations = new Destination();
+        $destinations = new Destination;
 
         $destinations = $destinations->QueryTable($this->keyWord, $this->sortField, $this->sortDirection)->paginate(10);
-        
+
+        // if (! $this->initialized && empty($this->selectedModel) && $destinations->isNotEmpty()) {
+        //     $this->selected_id = $destinations->first()->id;
+        //     $this->selectedModel = [$destinations->first()->id];
+        //     $this->initialized = true;
+        // }
+
         return view('livewire.destination.index', compact('destinations'));
     }
+
+    // public function updatedSelectedModel()
+    // {
+    //     if (empty($this->selectedModel)) {
+    //         $this->selected_id = 0;
+    //     } else {
+    //         $this->selected_id = $this->selectedModel[0];
+    //     }
+    // }
 
     /**
      * Reglas de validación para los campos del formulario
@@ -56,21 +88,21 @@ class Destinations extends Component
      * Almacena un nuevo registro en la base de datos
      */
     public function store()
-    {     
+    {
         can('destination create');
-        
+
         $validate = $this->validate();
 
         Destination::create($validate);
 
-        //reinicamos los campos
+        // reinicamos los campos
         $this->cancel();
-    	$this->dispatch('alert', ['type' => 'success', 'message' => 'Centro de costo creado correctamente.']);
+        $this->dispatch('alert', ['type' => 'success', 'message' => 'Centro de costo creado correctamente.']);
     }
-
 
     /**
      * returns the values ​​of the destinations to edit
+     *
      * @return void
      */
     public function edit()
