@@ -36,7 +36,7 @@ class DetailCharacteristics extends Component
     public $status;
 
     public $showModal = false;
-    
+
     public $characteristic_selected = [];
 
     public function hydrate(): void
@@ -50,14 +50,14 @@ class DetailCharacteristics extends Component
     public function selectdId($id): void
     {
         $this->characteristic_selected = $id;
-        
+
         $this->render();
     }
 
     public function render()
     {
         $this->bulkDisabled = count($this->selectedModel) < 1;
-        
+
         $detailCharacteristics = CharacteristicDetail::where('characteristic_id', $this->characteristic_selected)
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(10);
@@ -86,7 +86,7 @@ class DetailCharacteristics extends Component
         } else {
             $this->showModal = true;
         }
-        
+
     }
 
     public function store()
@@ -97,10 +97,9 @@ class DetailCharacteristics extends Component
 
         if (empty($this->characteristic_selected)) {
             $this->dispatch('alert', ['type' => 'warning', 'message' => 'Seleccione una característica antes de crear un detalle.']);
-            return;
+        } else {
+            $validate['characteristic_id'] = $this->characteristic_selected;
         }
-
-        $validate['characteristic_id'] = $this->characteristic_selected;
 
         CharacteristicDetail::create($validate);
 
@@ -136,7 +135,7 @@ class DetailCharacteristics extends Component
             $record = CharacteristicDetail::find($this->selected_id);
             $record->update($validate);
 
-            $this->cancel();            
+            $this->cancel();
             $this->dispatch('alert', ['type' => 'success', 'message' => 'Detalle de característica actualizado correctamente.']);
         }
     }

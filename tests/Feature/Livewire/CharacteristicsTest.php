@@ -145,6 +145,20 @@ class CharacteristicsTest extends TestCase
     }
 
     #[Test]
+    public function it_displays_no_characteristics_when_none_exist()
+    {
+        $user = User::factory()->create();
+        Permission::firstOrCreate(['name' => 'characteristic create']);
+        $user->givePermissionTo('characteristic create');
+
+        Livewire::actingAs($user);
+
+        Livewire::test(Characteristics::class)
+            ->assertDontSee('Size')
+            ->assertDontSee('Weight');
+    }
+
+    #[Test]
     public function it_validates_name_max_length()
     {
         // Crear usuario y asignar permiso 'characteristic create'

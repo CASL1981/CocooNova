@@ -49,23 +49,9 @@ class Destinations extends Component
 
         $destinations = $destinations->QueryTable($this->keyWord, $this->sortField, $this->sortDirection)->paginate(10);
 
-        // if (! $this->initialized && empty($this->selectedModel) && $destinations->isNotEmpty()) {
-        //     $this->selected_id = $destinations->first()->id;
-        //     $this->selectedModel = [$destinations->first()->id];
-        //     $this->initialized = true;
-        // }
-
         return view('livewire.destination.index', compact('destinations'));
     }
 
-    // public function updatedSelectedModel()
-    // {
-    //     if (empty($this->selectedModel)) {
-    //         $this->selected_id = 0;
-    //     } else {
-    //         $this->selected_id = $this->selectedModel[0];
-    //     }
-    // }
 
     /**
      * Reglas de validación para los campos del formulario

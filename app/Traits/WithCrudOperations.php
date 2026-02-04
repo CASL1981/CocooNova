@@ -14,7 +14,7 @@ trait WithCrudOperations
     /**
      * Identificador del registro seleccionado (para editar o eliminar)
      */
-    public $selected_id = null;
+    public $selected_id = 0;
 
     /**
      * Nombre del modelo asociado a la tabla
@@ -25,6 +25,11 @@ trait WithCrudOperations
      * Nombre del modelo para mensajes y permisos
      */
     public $permissionModel;
+    
+    /**
+     * Nombre del modelo para mensajes y permisos
+     */
+    public $messageModel;
 
     /**
      * Determine the method to call: store or update.

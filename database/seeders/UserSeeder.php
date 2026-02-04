@@ -126,6 +126,8 @@ class UserSeeder extends Seeder
             'update',
             'delete',
             'toggle',
+            'process',
+            'reverse'
         ];
 
         $modules = [

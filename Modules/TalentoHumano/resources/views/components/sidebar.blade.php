@@ -20,7 +20,7 @@
     <li><hr class="hr-horizontal"></li>
     <li class="nav-item static-item">
         <a class="nav-link static-item disabled" href="#" tabindex="-1">
-            <span class="default-icon">Basicos</span>
+            <span class="default-icon">Talento Humano</span>
             <span class="mini-icon">-</span>
         </a>
     </li> 
@@ -36,7 +36,7 @@
                     <path d="M3.32156 13.5127C2.21752 13.7297 1.49225 14.1719 1.19139 14.8167C0.936203 15.3453 0.936203 15.9586 1.19139 16.4872C1.65163 17.4851 3.13531 17.8066 3.71195 17.8885C3.83104 17.9065 3.92595 17.8038 3.91342 17.6832C3.61883 14.9167 5.9621 13.6046 6.56918 13.3029C6.59425 13.2885 6.59962 13.2677 6.59694 13.2542C6.59515 13.2452 6.5853 13.2317 6.5656 13.2299C5.25294 13.2047 3.84358 13.3848 3.32156 13.5127Z" fill="currentColor"></path>
                 </svg>
             </i>
-            <span class="item-name">Usuarios</span>
+            <span class="item-name">Recursos</span>
             <i class="right-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" class="icon-18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -45,8 +45,8 @@
         </a>
         <ul class="sub-nav collapse" id="sidebar-special" data-bs-parent="#sidebar-menu">
             <li class="nav-item">
-                @can('user read')
-                    <a class="nav-link {{ activeRoute(route('user.index')) }}" href="{{ route('user.index') }}">
+                @can('role read')
+                    <a class="nav-link {{ activeRoute(route('employee.index')) }}" href="{{ route('employee.index') }}">
                         <i class="icon">
                             <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -55,11 +55,11 @@
                             </svg>
                         </i>
                         <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Login" data-bs-placement="right">G</i>
-                        <span class="item-name">Gestionar</span>
+                        <span class="item-name">Empleados</span>
                     </a>                    
                 @endcan
                 @can('role read')
-                    <a class="nav-link {{ activeRoute(route('role.index')) }}" href="{{ route('role.index') }}">
+                    <a class="nav-link " href="#">
                         <i class="icon">
                             <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -68,7 +68,7 @@
                             </svg>
                         </i>
                         <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Login" data-bs-placement="right">L</i>
-                        <span class="item-name">Roles </span>
+                        <span class="item-name">Link 2 </span>
                     </a>                    
                 @endcan
             </li>
@@ -128,7 +128,7 @@
         </a>
         <ul class="sub-nav collapse" id="ui"  data-parent="#sidebar-menu">
             <li class="nav-item">
-                <a class="nav-link {{ activeRoute(route('setting.general')) }}" href="{{ route('setting.general') }}">
+                <a class="nav-link " href="#">
                     <i class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>
@@ -137,13 +137,13 @@
                         </svg>
                     </i>
                     <i class="sidenav-mini-icon">G </i>
-                    <span class="item-name">General</span>
+                    <span class="item-name">Link 1</span>
                 </a>
             </li>
         </ul>
         <ul class="sub-nav collapse" id="ui"  data-parent="#sidebar-menu">
             <li class="nav-item">
-                <a class="nav-link {{ activeRoute(route('setting.costcenter')) }}" href="{{ route('setting.costcenter') }}">
+                <a class="nav-link " href="#">
                     <i class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>
@@ -152,13 +152,13 @@
                         </svg>
                     </i>
                     <i class="sidenav-mini-icon">C </i>
-                    <span class="item-name">Centros Costos</span>
+                    <span class="item-name">Link 2</span>
                 </a>
             </li>
         </ul>
         <ul class="sub-nav collapse" id="ui"  data-parent="#sidebar-menu">
             <li class="nav-item">
-                <a class="nav-link {{ activeRoute(route('setting.characteristics')) }}" href="{{ route('setting.characteristics') }}">
+                <a class="nav-link " href="#">
                     <i class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>
@@ -167,7 +167,7 @@
                         </svg>
                     </i>
                     <i class="sidenav-mini-icon">C </i>
-                    <span class="item-name">Características</span>
+                    <span class="item-name">Link 3</span>
                 </a>
             </li>
         </ul>
@@ -189,7 +189,7 @@
         </a>
         <ul class="sub-nav collapse" id="sidebar-widget" data-bs-parent="#sidebar-menu">
             <li class="nav-item">
-                <a class="nav-link " href="{{ route('talentohumano') }}">
+                <a class="nav-link {{ activeRoute(route('talentohumano')) }}" href="{{ route('talentohumano') }}">
                     <i class="icon">
                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <g>

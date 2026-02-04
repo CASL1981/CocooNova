@@ -29,6 +29,7 @@ class DetailCharacteristicsTest extends TestCase
         Livewire::actingAs($user);
 
         Livewire::test(DetailCharacteristics::class)
+            ->call('selectdId', ['id' => $characteristic->id])
             ->set('characteristic_id', $characteristic->id)
             ->set('name', 'Detail Name')
             ->set('abbreviation', 'DN')
@@ -37,7 +38,7 @@ class DetailCharacteristicsTest extends TestCase
             ->set('percentage', 10.5)
             ->set('max', 200.00)
             ->set('min', 50.00)
-            ->set('stock', false)
+            ->set('stock', 0)
             ->set('status', true)
             ->call('store');
 
@@ -97,7 +98,7 @@ class DetailCharacteristicsTest extends TestCase
             ->set('percentage', 15.0)
             ->set('max', 250.00)
             ->set('min', 75.00)
-            ->set('stock', true)
+            ->set('stock', 1)
             ->set('status', false)
             ->call('update');
 
@@ -205,6 +206,48 @@ class DetailCharacteristicsTest extends TestCase
             ->set('name', str_repeat('A', 101)) // Más de 100 caracteres
             ->call('store')
             ->assertHasErrors(['name' => 'max']);
+    }
+
+    #[Test]
+    public function it_displays_no_details_when_no_characteristic_selected()
+    {
+        $user = User::factory()->create();
+        Permission::firstOrCreate(['name' => 'characteristic create']);
+        $user->givePermissionTo('characteristic create');
+
+        Livewire::actingAs($user);
+
+        // Crear algunos details
+        CharacteristicDetail::factory()->create(['name' => 'Detail 1']);
+        CharacteristicDetail::factory()->create(['name' => 'Detail 2']);
+
+        Livewire::test(DetailCharacteristics::class)
+            ->assertDontSee('Detail 1')
+            ->assertDontSee('Detail 2');
+    }
+
+    #[Test]
+    public function it_cannot_create_detail_without_selecting_characteristic()
+    {
+        $user = User::factory()->create();
+        Permission::firstOrCreate(['name' => 'characteristic create']);
+        $user->givePermissionTo('characteristic create');
+
+        Livewire::actingAs($user);
+
+        Livewire::test(DetailCharacteristics::class)
+            ->set('name', 'Test Detail')
+            ->set('abbreviation', 'TD')
+            ->set('code', 'TD001')
+            ->set('value', 100.5)
+            ->set('percentage', 10.5)
+            ->set('max', 200)
+            ->set('min', 50)
+            ->set('stock', 0)
+            ->set('status', true)
+            ->call('store');
+
+        $this->assertDatabaseMissing('characteristic_details', ['name' => 'Test Detail']);
     }
 
     #[Test]

@@ -53,9 +53,9 @@
             display: none !important;
         }
 
-        /* td {
+        td {
             padding: 0.5rem !important;
-        } */
+        }
 
         /* Restaura el comportamiento del fieldset para que el borde rodee el contenido */
         .fieldset-border {
@@ -76,7 +76,6 @@
             color: #333; /* Opcional: color del texto */
             border-bottom: none; /* Elimina bordes inferiores si los hubiera */
         }
-
     </style>
 
     @livewireStyles
@@ -120,7 +119,7 @@
         </div>
         <div class="sidebar-body pt-0 data-scrollbar">
             <div class="sidebar-list">
-                <x-sidebar />                
+                <x-talentohumano::sidebar />
             </div>
         </div>
         <div class="sidebar-footer"></div>
