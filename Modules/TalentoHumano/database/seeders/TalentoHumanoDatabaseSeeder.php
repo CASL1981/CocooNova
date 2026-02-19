@@ -35,6 +35,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
         $modules = [
             'employee',
             'contracts',
+            'familygroup',
         ];
 
         foreach($modules as $rol){
@@ -50,6 +51,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
 
         $talentohumano->syncPermissions(Permission::where('name', 'like', '%talentohumano%')
                                                     ->orWhere('name', 'like', '%contracts%')
+                                                    ->orWhere('name', 'like', '%familygroup%')
                                                     ->get());
     }
 }

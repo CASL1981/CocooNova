@@ -50,7 +50,7 @@ class Employees extends Component
      */
     public function edit()
     {
-        // can('employees update');
+        can('employees update');
 
         $record = Employee::findOrFail($this->selected_id);
         
@@ -109,6 +109,24 @@ class Employees extends Component
             // Mensaje de actualización
             $this->dispatch('alert', ['type' => 'success', 'message' => 'Empleado actualizado correctamente.']);
         }
+    }
+
+    public function manageProfile(): mixed
+    {
+        // can('employees manage-profile');
+
+        $status = Employee::where('id', $this->selected_id)->get('status')->toArray();
+
+        if($status[0]['status'])
+        {
+            session()->put('employeeId', $this->selected_id);
+
+            return redirect()->route('talentohumano.manage-profile');
+        }
+
+        $this->selectedModel = []; //limpiamos todos los item seleccionados
+        $this->selectAll = false;
+        return $this->dispatch('alert', ['type' => 'warning', 'message' => 'Empleado no se encuentra activo']);
     }
 }
         

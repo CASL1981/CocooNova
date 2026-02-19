@@ -3,6 +3,7 @@
 namespace Modules\TalentoHumano\App\Models;
 
 use App\Models\Destination;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -70,6 +71,18 @@ class Employee extends Model
             ->search('last_name', $keyWord)
             ->orderBy($sortField, $sortDirection);
     }
+
+    /**
+ * Get the employee's full name.
+ *
+ * @return \Illuminate\Database\Eloquent\Casts\Attribute
+ */
+protected function fullName(): Attribute
+{
+    return Attribute::make(
+        get: fn (mixed $value, array $attributes) => trim($attributes['first_name'] . ' ' . $attributes['last_name']),
+    );
+}
 
     public function destination(): BelongsTo
     {

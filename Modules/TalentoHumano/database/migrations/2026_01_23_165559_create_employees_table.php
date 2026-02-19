@@ -39,7 +39,7 @@ return new class extends Migration
             $table->tinyInteger('number_children')->default(0)->comment('Numero de hijos');
             // --- Información Militar ---
             $table->string('military_service', 20)->nullable()->comment('Numero de libreta militar');
-            $table->string('type_militart', 20)->nullable()->comment('Tipo de libreta militar');
+            $table->string('type_military', 20)->nullable()->comment('Tipo de libreta militar');
             $table->string('district', 50)->nullable()->comment('Distrito militar');
             // --- Información Laboral ---
             $table->string('position', 100)->nullable()->comment('Cargo del empleado');
