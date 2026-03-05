@@ -32,7 +32,7 @@ class EmployeeFactory extends Factory
             'expedition_department' => 'CORDOBA',
             'expedition_city' => 'MONTERIA',
             'military_service' => '1234657',
-            'type_militart' => 'Priemra Clase',
+            'type_military' => 'Priemra Clase',
             'district' => 'MONTERIA',
             'department' => 'CORDOBA',
             'city' => 'MONTERIA',

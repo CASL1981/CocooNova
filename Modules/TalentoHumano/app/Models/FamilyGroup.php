@@ -1,11 +1,10 @@
 <?php
 
-namespace Modules\TalentoHumano\Models;
+namespace Modules\TalentoHumano\App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Mattiverse\Userstamps\Traits\Userstamps;
-use Modules\TalentoHumano\App\Models\Employee;
 use Modules\TalentoHumano\Database\Factories\FamilyGroupFactory;
 
 // use Modules\TalentoHumano\Database\Factories\FamilyGroupFactory;
@@ -13,15 +12,15 @@ use Modules\TalentoHumano\Database\Factories\FamilyGroupFactory;
 class FamilyGroup extends Model
 {
     use HasFactory;
-    use Userstamps;
+    // use Userstamps;
 
     protected $table = 'humantalent_family_groups';
 
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['employee_id', 'employee_fullName', 'name', 'kinship', 'profession', 'occupation', 'company', 'education_level',
-                            'birth_date', 'illness', 'phone'];
+    protected $fillable = ['employee_id', 'identification', 'name', 'kinship', 'profession', 'occupation', 'company',
+        'education_level', 'birth_date', 'illness', 'phone'];
 
     protected static function newFactory(): FamilyGroupFactory
     {
@@ -42,9 +41,9 @@ class FamilyGroup extends Model
      */
     public function QueryTable($keyWord, $sortField, $sortDirection): mixed
     {
-        return $this->select('id', 'employee_id', 'name', 'kinship', 'profession', 'occupation', 'company', 'education_level',
-                            'birth_date', 'illness', 'phone')
-            ->with(['creator', 'editor'])
+        return $this->select('id', 'employee_id', 'identification', 'name', 'kinship', 'profession',
+            'occupation', 'company', 'education_level', 'birth_date', 'illness', 'phone')
+            // ->with(['creator', 'editor'])
             ->search('name', $keyWord)
             ->search('kinship', $keyWord)
             ->orderBy($sortField, $sortDirection);
@@ -58,8 +57,8 @@ class FamilyGroup extends Model
      */
     public function QueryExport($keyWord, $sortField, $sortDirection): mixed
     {
-        return $this->select('id', 'employee_id', 'name', 'kinship', 'profession', 'occupation', 'company', 'education_level',
-                            'birth_date', 'illness', 'phone')
+        return $this->select('id', 'employee_id', 'identification', 'name', 'kinship', 'profession',
+            'occupation', 'company', 'education_level', 'birth_date', 'illness', 'phone')
             ->search('name', $keyWord)
             ->search('kinship', $keyWord)
             ->orderBy($sortField, $sortDirection);
@@ -67,6 +66,6 @@ class FamilyGroup extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 }

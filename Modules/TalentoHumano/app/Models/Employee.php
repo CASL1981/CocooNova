@@ -23,7 +23,7 @@ class Employee extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = ['type_document', 'identification', 'expedition_department', 'expedition_city', 'first_name', 'last_name',
-        'military_service', 'type_militart', 'district', 'department', 'city', 'address', 'estrato', 'type_housing', 'number_children',
+        'military_service', 'type_military', 'district', 'department', 'city', 'address', 'estrato', 'type_housing', 'number_children',
         'cel_phone', 'cel_phone2', 'email', 'gender', 'birth_date', 'department_birth', 'city_birth', 'destination_id',
         'photo_path', 'blood_type', 'marital_status', 'position', 'area', 'vendedor', 'status', 'auditor', 'approve'];
 
@@ -46,7 +46,7 @@ class Employee extends Model
     public function QueryTable($keyWord, $sortField, $sortDirection): mixed
     {
         return $this->select('id', 'type_document', 'identification', 'expedition_department', 'expedition_city', 'first_name', 'last_name',
-            'military_service', 'type_militart', 'district', 'department', 'city', 'address', 'estrato', 'type_housing', 'number_children',
+            'military_service', 'type_military', 'district', 'department', 'city', 'address', 'estrato', 'type_housing', 'number_children',
             'cel_phone', 'cel_phone2', 'email', 'gender', 'birth_date', 'department_birth', 'city_birth', 'destination_id',
             'photo_path', 'blood_type', 'marital_status', 'position', 'area', 'vendedor', 'status', 'auditor', 'approve')
             ->with(['creator', 'editor'])
@@ -64,7 +64,7 @@ class Employee extends Model
     public function QueryExport($keyWord, $sortField, $sortDirection): mixed
     {
         return $this->select(['type_document', 'identification', 'expedition_department', 'expedition_city', 'first_name', 'last_name',
-            'military_service', 'type_militart', 'district', 'department', 'city', 'address', 'estrato', 'type_housing', 'number_children',
+            'military_service', 'type_military', 'district', 'department', 'city', 'address', 'estrato', 'type_housing', 'number_children',
             'cel_phone', 'cel_phone2', 'email', 'gender', 'birth_date', 'department_birth', 'city_birth', 'destination_id',
             'photo_path', 'blood_type', 'marital_status', 'position', 'area', 'vendedor', 'status', 'auditor', 'approve'])
             ->search('first_name', $keyWord)
@@ -73,16 +73,14 @@ class Employee extends Model
     }
 
     /**
- * Get the employee's full name.
- *
- * @return \Illuminate\Database\Eloquent\Casts\Attribute
- */
-protected function fullName(): Attribute
-{
-    return Attribute::make(
-        get: fn (mixed $value, array $attributes) => trim($attributes['first_name'] . ' ' . $attributes['last_name']),
-    );
-}
+     * Get the employee's full name.
+     */
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => trim($attributes['first_name'].' '.$attributes['last_name']),
+        );
+    }
 
     public function destination(): BelongsTo
     {

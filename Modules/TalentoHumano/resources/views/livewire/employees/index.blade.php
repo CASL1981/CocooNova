@@ -2,6 +2,10 @@
     <div class="col-sm-12">
         <x-card-table :tittle="'Empleados'" :exportable="true" :audit="$audit">
             <x-slot name="button">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="activo" wire:model="showActive" wire:click="toggleShowActive()" >
+                    <label class="form-check-label mr-3" for="activo" wire:model="showActive">On</label>
+                </div>
                 @can('employee toggle')
                     <x-table.button-toggle :bulkDisabled="$bulkDisabled" />                    
                 @endcan

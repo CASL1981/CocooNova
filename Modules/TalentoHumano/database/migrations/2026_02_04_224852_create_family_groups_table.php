@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('humantalent_family_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained('humantalent_employees');
-            $table->string('employee_fullName', 150)->comment('Nombre completo del empleado');
+            $table->foreignId('employee_id')->constrained('humantalent_employees')->onDelete('cascade')->comment('Id del empleado al que pertenece el grupo familiar');
+            $table->string('identification', 10)->comment('Número de identificación del familiar');
             $table->string('name', 100)->comment('Nombre del familiar');
             $table->string('kinship', 100)->comment('Parentesco con el empleado');
-            $table->string('profession')->nullable()->comment('Profesión del familiar');
-            $table->string('occupation')->nullable()->comment('Ocupación del familiar');
-            $table->string('company')->nullable()->comment('Empresa donde labora el familiar');
-            $table->string('education_level')->nullable()->comment('Nivel de educación del familiar');
+            $table->string('profession', 150)->nullable()->comment('Profesión del familiar');
+            $table->string('occupation', 150)->nullable()->comment('Ocupación del familiar');
+            $table->string('company', 150)->nullable()->comment('Empresa donde labora el familiar');
+            $table->string('education_level', 100)->nullable()->comment('Nivel de educación del familiar');
             $table->date('birth_date')->comment('Fecha de nacimiento del familiar');
-            $table->text('illness')->nullable()->comment('Enfermedades que padece el familiar');
-            $table->string('phone')->nullable()->comment('Teléfono del familiar');
+            $table->string('illness', 255)->nullable()->comment('Enfermedades que padece el familiar');
+            $table->string('phone', 20)->nullable()->comment('Teléfono del familiar');
 
             $table->timestamps();
         });

@@ -12,13 +12,15 @@ use Modules\TalentoHumano\App\Models\Employee;
 
 class Employees extends Component
 {
-    use WithPagination;
     use WithCrudOperations;
+    use WithPagination;
     use WithTableOperations;
-    
-    public EmployeeForm $form;    
+
+    public EmployeeForm $form;
 
     public $destinations;
+
+    public $showActive = true;
 
     public function hydrate()
     {
@@ -26,34 +28,45 @@ class Employees extends Component
 
         $this->messageModel = 'Empleado Creado';
 
-        $this->exportable ='Modules\TalentoHumano\App\Exports\EmployeesExport';
+        $this->exportable = 'Modules\TalentoHumano\App\Exports\EmployeesExport';
         $this->model = 'Modules\TalentoHumano\App\Models\Employee';
 
         $this->destinations = Destination::pluck('name', 'id')->toArray();
     }
-    
+
     public function render()
     {
         $this->bulkDisabled = count($this->selectedModel) < 1;
 
-        $employees = new Employee();
+        $employees = new Employee;
 
-        $employees = $employees->QueryTable($this->keyWord, $this->sortField, $this->sortDirection)
-                    ->with('destination')->paginate(10);
-                    
+        $employees = $employees->QueryTable($this->keyWord, $this->sortField, $this->sortDirection);
+
+        if ($this->showActive) {
+            $employees = $employees->where('status', true)->with('destination')->paginate(10);
+        } else {
+            $employees = $employees->with('destination')->paginate(10);
+        }
+
         return view('talentohumano::livewire.employees.index', compact('employees'));
+    }
+
+    public function toggleShowActive(): void
+    {
+        $this->resetPage(); // Reinicia la paginación al cambiar el estado de showActive
     }
 
     /**
      * returns the values ​​of the s to edit
+     *
      * @return void
      */
     public function edit()
     {
-        can('employees update');
+        can('employee update');
 
         $record = Employee::findOrFail($this->selected_id);
-        
+
         $this->form->id = $record->id;
         $this->form->identification = $record->identification;
         $this->form->first_name = $record->first_name;
@@ -92,7 +105,7 @@ class Employees extends Component
 
     public function update()
     {
-        // can('employees update');
+        can('employee update');
 
         $validate = $this->validate();
 
@@ -117,16 +130,15 @@ class Employees extends Component
 
         $status = Employee::where('id', $this->selected_id)->get('status')->toArray();
 
-        if($status[0]['status'])
-        {
+        if ($status[0]['status']) {
             session()->put('employeeId', $this->selected_id);
 
             return redirect()->route('talentohumano.manage-profile');
         }
 
-        $this->selectedModel = []; //limpiamos todos los item seleccionados
+        $this->selectedModel = []; // limpiamos todos los item seleccionados
         $this->selectAll = false;
+
         return $this->dispatch('alert', ['type' => 'warning', 'message' => 'Empleado no se encuentra activo']);
     }
 }
-        

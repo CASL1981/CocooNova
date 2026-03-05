@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Modules\TalentoHumano\App\Livewire\Empleados\ListarEmpleados;
 use Modules\Talentohumano\App\Livewire\Employees;
+use Modules\Talentohumano\App\Livewire\FamilyGroup;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -163,5 +164,6 @@ class TalentoHumanoServiceProvider extends ServiceProvider
         Livewire::component('talentohumano.empleados.listar-empleados', ListarEmpleados::class);
 
         Livewire::component('talentohumano.employees', Employees::class);
+        Livewire::component('talentohumano.family-group', FamilyGroup::class);
     }
 }

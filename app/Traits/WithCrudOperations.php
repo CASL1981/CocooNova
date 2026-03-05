@@ -25,7 +25,7 @@ trait WithCrudOperations
      * Nombre del modelo para mensajes y permisos
      */
     public $permissionModel;
-    
+
     /**
      * Nombre del modelo para mensajes y permisos
      */
@@ -53,6 +53,29 @@ trait WithCrudOperations
         $this->resetInput();
         $this->dispatch('alert', ['type' => 'success', 'message' => $this->messageModel.' creada']);
 
+    }
+
+    /**
+     * Elimina el registro seleccionado de la base de datos
+     */
+    #[On('deleteItem')]
+    public function delete(): void
+    {
+        can($this->permissionModel.' delete');
+
+        if ($this->selected_id) {
+            $record = $this->model::find($this->selected_id);
+
+            if ($record) {
+                $record->delete();
+                $this->dispatch('alert', ['type' => 'success', 'message' => $this->messageModel.' Eliminado correctamente.']);
+                $this->resetInput();
+            } else {
+                $this->dispatch('alert', [
+                    ['type' => 'warning', 'message' => 'Seleccione un Item para eliminar.'],
+                ]);
+            }
+        }
     }
 
     /**
@@ -117,6 +140,7 @@ trait WithCrudOperations
 
             if (! $status || $status[0]['status'] === 'Completed') {
                 $this->resetInput();
+
                 return $this->dispatch('alert', ['type' => 'warning', 'message' => 'Item Anulado o No se encuentra en estado activo no se puede cambiar']);
             }
 

@@ -12,16 +12,21 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('assets/css/core/libs.min.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/core/libs.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/qompac-ui.min.css?v=2.0.0') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/customizer.min.css?v=2.0.0') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/custom.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/rtl.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/rtl.min.css') }}" /> --}}
+
+    <!-- 1. Estilos (CSS) -->
+    <!-- Cargamos estilos con Vite para aprovechar la compresión y HMR -->
+    @vite(['resources/css/app.css', 'resources/assets/css/qompac-ui.min.css', 'resources/assets/css/custom.min.css'])
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/>
 
     @stack('styles')
     
-    <style>
+    {{-- <style>
         /* Colocar el punto como badge absoluto sobre el icono y un poco más a la izquierda */
         #notification-drop {
             position: relative;
@@ -77,7 +82,7 @@
             border-bottom: none; /* Elimina bordes inferiores si los hubiera */
         }
 
-    </style>
+    </style> --}}
 
     @livewireStyles
 
@@ -153,6 +158,9 @@
     <!-- Customizer Offcanvas (Opcional) -->
     @include('layouts.customizer')
 
+    <!-- 2. SCRIPTS (JS) - Carga Secuencial Estática -->
+    <!-- Estos scripts se ejecutan en el orden exacto y comparten el scope global -->
+
     <!-- Scripts -->
     <script src="{{ asset('assets/js/core/libs.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/slider-tabs.js') }}"></script>
@@ -165,6 +173,9 @@
     <script src="{{ asset('assets/js/charts/dashboard.js?v=2.0.0') }}" defer></script>
     <script src="{{ asset('assets/js/qompac-ui.js?v=2.0.0') }}" defer></script>
     <script src="{{ asset('assets/js/sidebar.js?v=2.0.0') }}" defer></script>
+
+    <!-- 3. Tu JS de Laravel (Vite) al final -->
+    @vite(['resources/js/app.js'])
     
     @stack('scripts')
     @livewireScripts

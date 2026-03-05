@@ -1,3 +1,5 @@
 @props(['disabled' => false])
 
-<input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control form-control-sm mb-3 shadow-none']) !!}>
+<input 
+{!! $disabled ? 'disabled tabindex="-1" style="pointer-events: none; user-select: none; background-color: #f8f9fa; opacity: 0.6;"' : '' !!} 
+{!! $attributes->merge(['class' => 'form-control form-control-sm mb-3 shadow-none']) !!}>

@@ -9,7 +9,7 @@ class FamilyGroupFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      */
-    protected $model = \Modules\TalentoHumano\Models\FamilyGroup::class;
+    protected $model = \Modules\TalentoHumano\App\Models\FamilyGroup::class;
 
     /**
      * Define the model's default state.
@@ -17,8 +17,8 @@ class FamilyGroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'employee_id' => 1,
-            'employee_fullName' => $this->faker->name(),
+            'employee_id' => 1, // Asegúrate de que este ID exista en tu tabla de empleados o ajusta según tu lógica
+            'identification' => $this->faker->unique()->numerify('#########'), // Genera un número de identificación único
             'name' => $this->faker->name(),
             'kinship' => $this->faker->randomElement(['Padre', 'Madre', 'Hermano', 'Hermana', 'Hijo', 'Hija', 'Cónyuge']),
             'profession' => $this->faker->jobTitle(),
@@ -31,4 +31,3 @@ class FamilyGroupFactory extends Factory
         ];
     }
 }
-

@@ -3,7 +3,7 @@
 namespace Modules\TalentoHumano\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\TalentoHumano\Models\FamilyGroup;
+use Modules\TalentoHumano\App\Models\FamilyGroup as ModelsFamilyGroup;
 
 class FamilyGroupSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class FamilyGroupSeeder extends Seeder
      */
     public function run(): void
     {
-        FamilyGroup::factory()->count(10)->create();
+        ModelsFamilyGroup::factory()->count(10)->create();
     }
 }
