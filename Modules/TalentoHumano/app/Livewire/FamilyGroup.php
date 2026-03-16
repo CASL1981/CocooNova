@@ -8,6 +8,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Talentohumano\App\Livewire\Forms\FamilyGroupForm;
 use Modules\TalentoHumano\App\Models\FamilyGroup as ModelsFamilyGroup;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\Response;
 
 class FamilyGroup extends Component
 {
@@ -89,7 +91,7 @@ class FamilyGroup extends Component
         $this->form->company = $record->company;
         $this->form->education_level = $record->education_level;
         $this->form->birth_date = $record->birth_date->format('Y-m-d');
-        $this->form->illness = $record->illness;
+        $this->form->illness = $record->illness ?? '';
 
         $this->show = true;
     }
@@ -121,5 +123,24 @@ class FamilyGroup extends Component
         $this->resetErrorBag();
         $this->resetValidation();
         $this->resetExcept(['model', 'exportable', 'keyWord', 'employeeId']);
+    }
+
+    /**
+     * Exporta los datos en el formato especificado (csv, xlsx, pdf).
+     *
+     * @param  string  $ext  La extensión del archivo de exportación.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function export($ext)
+    {
+        abort_if(! in_array($ext, ['csv', 'xlsx', 'pdf']), Response::HTTP_NOT_FOUND);
+
+        $query = new $this->model;
+
+        $query = $query->QueryExport($this->keyWord, $this->sortField, $this->sortDirection)
+                ->where('employee_id', $this->employeeId)
+                ->get();
+
+        return Excel::download(new $this->exportable($query), 'filename.'.$ext);
     }
 }

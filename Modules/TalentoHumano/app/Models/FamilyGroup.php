@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Mattiverse\Userstamps\Traits\Userstamps;
 use Modules\TalentoHumano\Database\Factories\FamilyGroupFactory;
 
-// use Modules\TalentoHumano\Database\Factories\FamilyGroupFactory;
-
 class FamilyGroup extends Model
 {
     use HasFactory;
-    // use Userstamps;
+    use Userstamps;
 
     protected $table = 'humantalent_family_groups';
 
@@ -20,7 +18,7 @@ class FamilyGroup extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = ['employee_id', 'identification', 'name', 'kinship', 'profession', 'occupation', 'company',
-        'education_level', 'birth_date', 'illness', 'phone'];
+        'education_level', 'birth_date', 'illness', 'phone', 'created_by', 'updated_by'];
 
     protected static function newFactory(): FamilyGroupFactory
     {
@@ -43,7 +41,7 @@ class FamilyGroup extends Model
     {
         return $this->select('id', 'employee_id', 'identification', 'name', 'kinship', 'profession',
             'occupation', 'company', 'education_level', 'birth_date', 'illness', 'phone')
-            // ->with(['creator', 'editor'])
+            ->with(['creator', 'editor'])
             ->search('name', $keyWord)
             ->search('kinship', $keyWord)
             ->orderBy($sortField, $sortDirection);
@@ -57,7 +55,7 @@ class FamilyGroup extends Model
      */
     public function QueryExport($keyWord, $sortField, $sortDirection): mixed
     {
-        return $this->select('id', 'employee_id', 'identification', 'name', 'kinship', 'profession',
+        return $this->select('identification', 'name', 'kinship', 'profession',
             'occupation', 'company', 'education_level', 'birth_date', 'illness', 'phone')
             ->search('name', $keyWord)
             ->search('kinship', $keyWord)

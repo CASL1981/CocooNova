@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <x-card-table :tittle="'Empleados'" :exportable="true" :audit="$audit">
+        <x-card-table :tittle="'Familiares'" :exportable="true" :audit="$audit">
             <x-slot name="button">                
                 @can('familygroup delete')
                     <x-table.button-delete :bulkDisabled="$bulkDisabled" />

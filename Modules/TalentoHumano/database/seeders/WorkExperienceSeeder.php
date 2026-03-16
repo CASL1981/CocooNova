@@ -4,18 +4,17 @@ namespace Modules\TalentoHumano\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\TalentoHumano\App\Models\Employee;
-use Modules\TalentoHumano\App\Models\FamilyGroup as ModelsFamilyGroup;
+use Modules\TalentoHumano\App\Models\WorkExperience;
 
-class FamilyGroupSeeder extends Seeder
+class WorkExperienceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        //crea 3 registros de grupo familiar para cada empleado
         Employee::all()->each(function (Employee $employee) {
-            ModelsFamilyGroup::factory()
+            WorkExperience::factory()
                 ->count(3)
                 ->create(['employee_id' => $employee->id]);
         });

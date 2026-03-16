@@ -15,6 +15,8 @@ class TalentoHumanoDatabaseSeeder extends Seeder
     {
         $this->call([
             EmployeeSeeder::class,
+            FamilyGroupSeeder::class,
+            WorkExperienceSeeder::class,
         ]);
 
         $admin = Role::find(1);
@@ -36,6 +38,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
             'employee',
             'contracts',
             'familygroup',
+            'workexperience',
         ];
 
         foreach($modules as $rol){

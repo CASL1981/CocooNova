@@ -24,6 +24,9 @@ return new class extends Migration
             $table->date('birth_date')->comment('Fecha de nacimiento del familiar');
             $table->string('illness', 255)->nullable()->comment('Enfermedades que padece el familiar');
             $table->string('phone', 20)->nullable()->comment('Teléfono del familiar');
+            
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
 
             $table->timestamps();
         });

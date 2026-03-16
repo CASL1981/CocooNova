@@ -70,7 +70,7 @@
                     <livewire:talentohumano.family-group :employeeId="$employee->id"/>
                 </div>
                 <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
-                    <p>Experiencia laboral del empleado.</p>
+                    <livewire:talentohumano.work-experiences :employeeId="$employee->id"/>
                 </div>
                 <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
                     <p>Información academica</p>
