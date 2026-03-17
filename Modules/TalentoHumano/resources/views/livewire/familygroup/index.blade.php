@@ -35,7 +35,7 @@
                             >
                         </td>
                         <td class="p-1 text-right">{{ $item->identification }}</td>
-                        <td class="p-1 text-right">{{ $item->name }}</td>
+                        <td class="p-1">{{ $item->name }}</td>
                         <td class="p-1">{{ $item->kinship }}</td>
                         <td class="p-1">{{ $item->profession }}</td>
                         <td class="p-1">{{ $item->occupation }}</td>

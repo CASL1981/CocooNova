@@ -17,6 +17,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             FamilyGroupSeeder::class,
             WorkExperienceSeeder::class,
+            AcademicInfoSeeder::class,
         ]);
 
         $admin = Role::find(1);
@@ -39,6 +40,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
             'contracts',
             'familygroup',
             'workexperience',
+            'academicinfo',
         ];
 
         foreach($modules as $rol){
@@ -55,6 +57,8 @@ class TalentoHumanoDatabaseSeeder extends Seeder
         $talentohumano->syncPermissions(Permission::where('name', 'like', '%talentohumano%')
                                                     ->orWhere('name', 'like', '%contracts%')
                                                     ->orWhere('name', 'like', '%familygroup%')
+                                                    ->orWhere('name', 'like', '%workexperience%')
+                                                    ->orWhere('name', 'like', '%academicinfo%')
                                                     ->get());
     }
 }

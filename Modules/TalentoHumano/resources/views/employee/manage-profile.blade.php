@@ -73,7 +73,7 @@
                     <livewire:talentohumano.work-experiences :employeeId="$employee->id"/>
                 </div>
                 <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
-                    <p>Información academica</p>
+                    <livewire:talentohumano.academic-infos :employeeId="$employee->id"/>
                 </div>
                 <div class="tab-pane fade" id="pills-evaluation-fill" role="tabpanel" aria-labelledby="pills-evaluation-tab-fill">
                     <p>Evaluaciones del empleado.</p>

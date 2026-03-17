@@ -33,7 +33,7 @@ class WorkExperienceFactory extends Factory
             'immediate_supervisor' => $this->faker->name(),
             'start_date'           => $startDate,
             'end_date'             => $endDate,
-            'time_service'         => $this->faker->numerify('# years # months'),
+            'time_service'         => $this->faker->numerify('# años # meses'),
             'city'                 => $this->faker->city(),
             'phone'                => '3013013010',
             'contract_type'        => $this->faker->randomElement($contractTypes),

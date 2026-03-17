@@ -5,9 +5,10 @@ namespace Modules\TalentoHumano\App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use Modules\TalentoHumano\App\Livewire\AcademicInfoManager;
 use Modules\Talentohumano\App\Livewire\Employees;
 use Modules\Talentohumano\App\Livewire\FamilyGroup;
-use Modules\Talentohumano\App\Livewire\WorkExperiences;
+use Modules\Talentohumano\App\Livewire\WorkExperiencesManager;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -163,6 +164,7 @@ class TalentoHumanoServiceProvider extends ServiceProvider
     {
         Livewire::component('talentohumano.employees', Employees::class);
         Livewire::component('talentohumano.family-group', FamilyGroup::class);
-        Livewire::component('talentohumano.work-experiences', WorkExperiences::class);
+        Livewire::component('talentohumano.work-experiences', WorkExperiencesManager::class);
+        Livewire::component('talentohumano.academic-infos', AcademicInfoManager::class);
     }
 }

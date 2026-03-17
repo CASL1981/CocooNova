@@ -5,12 +5,11 @@ namespace Modules\TalentoHumano\App\Livewire;
 use App\Traits\WithCrudOperations;
 use App\Traits\WithTableOperations;
 use Livewire\Component;
-use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Modules\TalentoHumano\App\Livewire\Forms\WorkExperienceForm;
 use Modules\TalentoHumano\App\Models\WorkExperience;
 
-class WorkExperiences extends Component
+class WorkExperiencesManager extends Component
 {
     use WithPagination;
     use WithCrudOperations;
@@ -116,26 +115,5 @@ class WorkExperiences extends Component
         $this->resetValidation();
         $this->resetExcept(['model', 'exportable', 'keyWord', 'employeeId']);
     }
-    // public function confirmDelete(int $id): void
-    // {
-    //     $this->deleteId = $id;
-    // }
-
-    // public function delete(): void
-    // {
-    //     can('workexperience delete');
-
-    //     WorkExperience::findOrFail($this->deleteId)->delete();
-
-    //     $this->deleteId = null;
-    //     $this->dispatch('notify', message: 'Experiencia laboral eliminada.', type: 'danger');
-    // }
-
-    // public function cancel(): void
-    // {
-    //     $this->form->resetPreservingEmployee();
-    //     $this->showForm  = false;
-    //     $this->isEditing = false;
-    // }
-
+    
 }
