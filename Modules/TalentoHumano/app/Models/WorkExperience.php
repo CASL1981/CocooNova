@@ -23,9 +23,9 @@ class WorkExperience extends Model
                         'created_by', 'updated_by'];
 
     protected $casts = [
-        'start_date'  => 'date',
-        'end_date'    => 'date',
-        'created_by' => 'datetime:Y-m-d h:i:s',
+        'start_date'  => 'date:d-m-Y',
+        'end_date'    => 'date:d-m-Y',
+        'created_by' => 'datetime:d-m-Y h:i:s',
         'updated_by' => 'datetime:d-m-Y h:i:s',
         'salary'      => 'decimal:2',
     ];
@@ -59,7 +59,7 @@ class WorkExperience extends Model
      */
     public function QueryExport($keyWord, $sortField, $sortDirection): mixed
     {
-        return $this->select('id', 'employee_id', 'company', 'nature', 'position', 'immediate_supervisor', 'start_date', 'end_date',
+        return $this->select('company', 'nature', 'position', 'immediate_supervisor', 'start_date', 'end_date',
                         'time_service', 'city', 'phone', 'contract_type', 'salary', 'main_duties', 'reason_for_leaving')
             ->search('company', $keyWord)
             ->search('position', $keyWord)

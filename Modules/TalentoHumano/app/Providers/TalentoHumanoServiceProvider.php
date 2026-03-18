@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Modules\TalentoHumano\App\Livewire\AcademicInfoManager;
 use Modules\Talentohumano\App\Livewire\Employees;
+use Modules\TalentoHumano\App\Livewire\EvaluationManager;
 use Modules\Talentohumano\App\Livewire\FamilyGroup;
 use Modules\Talentohumano\App\Livewire\WorkExperiencesManager;
 use Nwidart\Modules\Traits\PathNamespace;
@@ -166,5 +167,6 @@ class TalentoHumanoServiceProvider extends ServiceProvider
         Livewire::component('talentohumano.family-group', FamilyGroup::class);
         Livewire::component('talentohumano.work-experiences', WorkExperiencesManager::class);
         Livewire::component('talentohumano.academic-infos', AcademicInfoManager::class);
+        Livewire::component('talentohumano.evaluations', EvaluationManager::class);
     }
 }

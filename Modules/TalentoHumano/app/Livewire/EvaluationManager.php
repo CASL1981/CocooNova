@@ -2,28 +2,27 @@
 
 namespace Modules\TalentoHumano\App\Livewire;
 
-use App\Traits\WithCrudOperations;
-use App\Traits\WithTableOperations;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Traits\WithCrudOperations;
+use App\Traits\WithTableOperations;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\TalentoHumano\App\Livewire\Forms\WorkExperienceForm;
-use Modules\TalentoHumano\App\Models\WorkExperience;
+use Modules\TalentoHumano\App\Livewire\Forms\EvaluationForm;
+use Modules\TalentoHumano\App\Models\Evaluation;
 use Symfony\Component\HttpFoundation\Response;
 
-class WorkExperiencesManager extends Component
+class EvaluationManager extends Component
 {
     use WithPagination;
     use WithCrudOperations;
     use WithTableOperations;
 
-    public WorkExperienceForm $form;
+    public EvaluationForm $form;
 
     // ---- Propiedades del componente (no se resetean) ----
     public $employeeId;
 
-    public $showModal = false;
-    
+    public $showModalEvaluation = false;
 
     public function mount(int $employeeId): void
     {
@@ -32,83 +31,78 @@ class WorkExperiencesManager extends Component
 
     public function hydrate(): void
     {
-        // Aseguramos que el Form Object siempre tenga el employee_id y employee_fullName actualizados
+        // Aseguramos que el Form Object siempre tenga el employee_id actualizado
         $this->form->employee_id = $this->employeeId;
 
-        $this->permissionModel = 'workexperience';
+        $this->permissionModel = 'evaluation';
 
-        $this->messageModel = 'Experiencia Laboral Creada';
+        $this->messageModel = 'Evaluación';
 
-        $this->exportable = 'Modules\TalentoHumano\App\Exports\WorkExperienceExport';
-        $this->model = 'Modules\TalentoHumano\App\Models\WorkExperience';
+        $this->exportable = 'Modules\TalentoHumano\App\Exports\EvaluationExport';
+        $this->model      = 'Modules\TalentoHumano\App\Models\Evaluation';
     }
-        
+
     // ---- Render ----
 
     public function render()
     {
         $this->bulkDisabled = count($this->selectedModel) < 1;
 
-        $workexperiences = new WorkExperience();
+        $evaluations = new Evaluation();
 
-        $workexperiences = $workexperiences->QueryTable($this->keyWord, $this->sortField, $this->sortDirection)
+        $evaluations = $evaluations->QueryTable($this->keyWord, $this->sortField, $this->sortDirection)
             ->where('employee_id', $this->employeeId)
-            ->orderBy('start_date', 'desc')
+            ->orderBy('date', 'desc')
             ->paginate(10);
 
-        return view('talentohumano::livewire.workexperiences.index', compact('workexperiences'));
+        return view('talentohumano::livewire.evaluations.index', compact('evaluations'));
     }
 
     // ---- CRUD Actions ----
 
     public function store(): void
     {
-        can('workexperience create');
+        can('evaluation create');
 
-        $this->form->validate();  // Valida rules() del form
+        $this->form->validate();
 
         $this->form->store();
-        
-        // reinicamos los campos
+
         $this->cancel();
-        $this->dispatch('alert', ['type' => 'success', 'message' => 'Grupo Familiar creado correctamente.']);
+        $this->dispatch('alert', ['type' => 'success', 'message' => 'Evaluación creada correctamente.']);
     }
 
-    /** returns the values ​​of the destinations to edit
-     *
-     * @return void
+    /**
+     * Carga los valores del registro seleccionado para edición
      */
     public function edit(): void
     {
-        can('workexperience update');
+        can('evaluation update');
 
-        $this->form->setWorkExperience($this->selected_id);
-        
-        $this->showModal = true;
+        $this->form->setEvaluation($this->selected_id);
+
+        $this->showModalEvaluation = true;
     }
 
-    /** update the selected record in the database
-     *
-     * @return void
+    /**
+     * Actualiza el registro seleccionado en la base de datos
      */
     public function update(): void
     {
-        can('workexperience update');
+        can('evaluation update');
 
-        // Validar usando el Form Object que tiene la regla unique con ignore($this->form->id)
         $this->form->validate();
 
         if ($this->selected_id) {
-            $record = WorkExperience::find($this->selected_id);
+            $record = Evaluation::find($this->selected_id);
             $record->update($this->form->all());
 
             $this->resetInput();
-            $this->dispatch('alert', ['type' => 'success', 'message' => 'Experiencia Laboral actualizada correctamente.']);
+            $this->dispatch('alert', ['type' => 'success', 'message' => 'Evaluación actualizada correctamente.']);
         }
     }
 
-
-        /**
+    /**
      * Reinicia los campos del formulario y los errores de validación
      */
     public function resetInput(): void
@@ -136,5 +130,4 @@ class WorkExperiencesManager extends Component
 
         return Excel::download(new $this->exportable($query), 'filename.'.$ext);
     }
-    
 }

@@ -52,32 +52,40 @@
         <div class="card">
             <div class="card-body">
                 <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab-fill" data-bs-toggle="pill" href="#pills-family-fill" role="tab" aria-selected="true">Grupo Familiar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab-fill" data-bs-toggle="pill" href="#pills-profile-fill" role="tab" aria-selected="false">Experiencia Laboral</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-contact-tab-fill" data-bs-toggle="pill" href="#pills-contact-fill" role="tab" aria-selected="false">Información Academica</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-evaluation-tab-fill" data-bs-toggle="pill" href="#pills-evaluation-fill" role="tab" aria-selected="false">Evaluaciones</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab-fill" data-bs-toggle="pill" href="#pills-family-fill" role="tab" aria-selected="true">Grupo Familiar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab-fill" data-bs-toggle="pill" href="#pills-profile-fill" role="tab" aria-selected="false">Experiencia Laboral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab-fill" data-bs-toggle="pill" href="#pills-contact-fill" role="tab" aria-selected="false">Información Academica</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-evaluation-tab-fill" data-bs-toggle="pill" href="#pills-evaluation-fill" role="tab" aria-selected="false">Evaluaciones</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-demographic-data-tab-fill" data-bs-toggle="pill" href="#pills-demographic-data-fill" role="tab" aria-selected="false">Datos Demográficos</a>
+                    </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent-1">
-                <div class="tab-pane fade show active" id="pills-family-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
-                    <livewire:talentohumano.family-group :employeeId="$employee->id"/>
-                </div>
-                <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
-                    <livewire:talentohumano.work-experiences :employeeId="$employee->id"/>
-                </div>
-                <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
-                    <livewire:talentohumano.academic-infos :employeeId="$employee->id"/>
-                </div>
-                <div class="tab-pane fade" id="pills-evaluation-fill" role="tabpanel" aria-labelledby="pills-evaluation-tab-fill">
-                    <p>Evaluaciones del empleado.</p>
-                </div>
+                    <div class="tab-pane fade show active" id="pills-family-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+                        <livewire:talentohumano.family-group :employeeId="$employee->id"/>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
+                        <livewire:talentohumano.work-experiences :employeeId="$employee->id"/>
+                    </div>
+                    <div class="tab-pane fade" id="pills-contact-fill" role="tabpanel" aria-labelledby="pills-contact-tab-fill">
+                        <livewire:talentohumano.academic-infos :employeeId="$employee->id"/>
+                    </div>
+                    <div class="tab-pane fade" id="pills-evaluation-fill" role="tabpanel" aria-labelledby="pills-evaluation-tab-fill">
+                        <livewire:talentohumano.evaluations :employeeId="$employee->id"/>
+                    </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-demographic-data-fill" role="tabpanel" aria-labelledby="pills-demographic-data-tab-fill">
+                        <livewire:talentohumano.evaluations :employeeId="$employee->id"/>
+                    </div>
                 </div>
             </div>
         </div>

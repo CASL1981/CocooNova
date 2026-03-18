@@ -62,7 +62,7 @@ class AcademicInfo extends Model
     * @return \Illuminate\Database\Eloquent\Builder
     */
     public function QueryExport($keyWord, $sortField, $sortDirection): mixed{
-        return $this->select('id', 'employee_id', 'academic_modality', 'graduate', 'degree_obtained', 'educational_institution', 
+        return $this->select('academic_modality', 'graduate', 'degree_obtained', 'educational_institution', 
                             'duration', 'completion_date', 'professional_license')
             ->with(['creator', 'editor'])
             ->search('academic_modality', $keyWord)

@@ -6,8 +6,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\WithCrudOperations;
 use App\Traits\WithTableOperations;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\TalentoHumano\App\Livewire\Forms\AcademicInfoForm;
 use Modules\TalentoHumano\App\Models\AcademicInfo;
+use Symfony\Component\HttpFoundation\Response;
 
 class AcademicInfoManager extends Component
 {
@@ -108,5 +110,24 @@ class AcademicInfoManager extends Component
         $this->resetErrorBag();
         $this->resetValidation();
         $this->resetExcept(['model', 'exportable', 'keyWord', 'employeeId']);
+    }
+
+    /**
+     * Exporta los datos en el formato especificado (csv, xlsx, pdf).
+     *
+     * @param  string  $ext  La extensión del archivo de exportación.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function export($ext)
+    {
+        abort_if(! in_array($ext, ['csv', 'xlsx', 'pdf']), Response::HTTP_NOT_FOUND);
+
+        $query = new $this->model;
+
+        $query = $query->QueryExport($this->keyWord, $this->sortField, $this->sortDirection)
+                ->where('employee_id', $this->employeeId)
+                ->get();
+
+        return Excel::download(new $this->exportable($query), 'filename.'.$ext);
     }
 }

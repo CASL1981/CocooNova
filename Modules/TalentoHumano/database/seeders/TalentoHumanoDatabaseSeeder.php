@@ -18,6 +18,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
             FamilyGroupSeeder::class,
             WorkExperienceSeeder::class,
             AcademicInfoSeeder::class,
+            EvaluationSeeder::class,
         ]);
 
         $admin = Role::find(1);
@@ -41,6 +42,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
             'familygroup',
             'workexperience',
             'academicinfo',
+            'evaluation',
         ];
 
         foreach($modules as $rol){
