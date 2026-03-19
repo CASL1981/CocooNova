@@ -19,6 +19,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
             WorkExperienceSeeder::class,
             AcademicInfoSeeder::class,
             EvaluationSeeder::class,
+            DemographicDataSeeder::class,
         ]);
 
         $admin = Role::find(1);
@@ -43,6 +44,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
             'workexperience',
             'academicinfo',
             'evaluation',
+            'demographicdata'
         ];
 
         foreach($modules as $rol){
@@ -61,6 +63,8 @@ class TalentoHumanoDatabaseSeeder extends Seeder
                                                     ->orWhere('name', 'like', '%familygroup%')
                                                     ->orWhere('name', 'like', '%workexperience%')
                                                     ->orWhere('name', 'like', '%academicinfo%')
+                                                    ->orWhere('name', 'like', '%evaluation%')
+                                                    ->orWhere('name', 'like', '%demographicdata%')
                                                     ->get());
     }
 }

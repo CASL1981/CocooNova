@@ -84,7 +84,7 @@
                     </div>
                     </div>
                     <div class="tab-pane fade" id="pills-demographic-data-fill" role="tabpanel" aria-labelledby="pills-demographic-data-tab-fill">
-                        <livewire:talentohumano.evaluations :employeeId="$employee->id"/>
+                        <livewire:talentohumano.demographic-data :employeeId="$employee->id"/>
                     </div>
                 </div>
             </div>
