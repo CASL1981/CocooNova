@@ -13,7 +13,7 @@ class DemographicDataSeeder extends Seeder
      */
     public function run(): void
     {
-        // Crea entre 1 y 3 registros demográficos por cada empleado existente
+        // Crea entre 1 registros demográficos por cada empleado existente
         Employee::all()->each(function (Employee $employee) {
             DemographicData::factory()
                 ->count(1)

@@ -20,6 +20,7 @@ class TalentoHumanoDatabaseSeeder extends Seeder
             AcademicInfoSeeder::class,
             EvaluationSeeder::class,
             DemographicDataSeeder::class,
+            ContractSeeder::class,
         ]);
 
         $admin = Role::find(1);
@@ -38,13 +39,15 @@ class TalentoHumanoDatabaseSeeder extends Seeder
         ];
 
         $modules = [
+            'manage-profile',
             'employee',
             'contracts',
             'familygroup',
             'workexperience',
             'academicinfo',
             'evaluation',
-            'demographicdata'
+            'demographicdata',
+            'contacts'
         ];
 
         foreach($modules as $rol){

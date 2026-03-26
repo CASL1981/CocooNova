@@ -92,9 +92,9 @@ trait WithTableOperations
         abort_if(! in_array($ext, ['csv', 'xlsx', 'pdf']), Response::HTTP_NOT_FOUND);
 
         $query = new $this->model;
-
+        
         $query = $query->QueryExport($this->keyWord, $this->sortField, $this->sortDirection)->get();
-
+        
         return Excel::download(new $this->exportable($query), 'filename.'.$ext);
     }
 

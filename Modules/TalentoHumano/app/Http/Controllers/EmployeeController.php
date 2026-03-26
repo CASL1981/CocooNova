@@ -18,7 +18,6 @@ class EmployeeController extends Controller
     {
         $employeeId = session()->get('employeeId');
 
-        // $employee = Employee::findOrFail($employeeId)->toArray();
         $employee = Employee::findOrFail($employeeId);
 
         return view('talentohumano::employee.manage-profile', compact('employee'));

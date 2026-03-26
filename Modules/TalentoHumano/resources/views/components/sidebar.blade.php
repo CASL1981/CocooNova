@@ -45,7 +45,7 @@
         </a>
         <ul class="sub-nav collapse" id="sidebar-special" data-bs-parent="#sidebar-menu">
             <li class="nav-item">
-                @can('role read')
+                @can('employee read')
                     <a class="nav-link {{ activeRoute(route('employee.index')) }}" href="{{ route('employee.index') }}">
                         <i class="icon">
                             <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -58,8 +58,8 @@
                         <span class="item-name">Empleados</span>
                     </a>                    
                 @endcan
-                @can('role read')
-                    <a class="nav-link " href="#">
+                @can('employee read')
+                    <a class="nav-link {{ activeRoute(route('contract.index')) }}" href="{{ route('contract.index') }}">
                         <i class="icon">
                             <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -68,7 +68,7 @@
                             </svg>
                         </i>
                         <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Login" data-bs-placement="right">L</i>
-                        <span class="item-name">Link 2 </span>
+                        <span class="item-name">Contratos</span>
                     </a>                    
                 @endcan
             </li>

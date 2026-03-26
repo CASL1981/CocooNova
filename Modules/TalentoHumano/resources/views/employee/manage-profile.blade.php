@@ -1,9 +1,5 @@
 @section('title', 'TH - Manage Profile')
 <x-talentohumano::layouts.master>
-    {{-- <livewire:talentohumano.employees /> --}}
-    {{-- @php
-        dd($employee);
-    @endphp --}}
     <div class="row">                  
        <div class="col-lg-12">
           <div class="card   rounded">

@@ -5,10 +5,14 @@ namespace Modules\Talentohumano\App\Livewire;
 use App\Models\Destination;
 use App\Traits\WithCrudOperations;
 use App\Traits\WithTableOperations;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Talentohumano\App\Livewire\Forms\EmployeeForm;
+use Modules\TalentoHumano\App\Models\Contract;
 use Modules\TalentoHumano\App\Models\Employee;
+
+use function Symfony\Component\Clock\now;
 
 class Employees extends Component
 {
@@ -126,7 +130,7 @@ class Employees extends Component
 
     public function manageProfile(): mixed
     {
-        // can('employees manage-profile');
+        can('employees manage-profile');
 
         $status = Employee::where('id', $this->selected_id)->get('status')->toArray();
 
@@ -141,4 +145,50 @@ class Employees extends Component
 
         return $this->dispatch('alert', ['type' => 'warning', 'message' => 'Empleado no se encuentra activo']);
     }
+
+    public function createContract()
+    {
+        can('contracts create');
+
+        $employee = Employee::findOrFail($this->selected_id);
+
+        if ($this->guardInactiveEmployee($employee) || $this->guardActiveContract($employee)) {
+             return;
+         }
+
+        Contract::create([
+            'employee_id' => $employee->id,
+            'identification' => $employee->identification,
+            'full_name' => "{$employee->first_name} {$employee->last_name}",
+            'hiring_date' => now(),
+            'period' => Carbon::now()->month,
+            'year' => Carbon::now()->year,
+            'status' => true,
+        ]);
+
+        $this->selectedModel = []; // limpiamos todos los item seleccionados
+        $this->selectAll = false;
+
+        return $this->dispatch('alert', ['type' => 'success', 'message' => 'Contrato creado correctamente']);
+    }
+
+    // --- Guard Clauses ---
+    private function guardInactiveEmployee(Employee $employee): bool
+    {
+        if ($employee->isActive()) return false;
+
+        $this->dispatch('alert', ['type'    => 'warning', 'message' => 'Empleado no se encuentra activo',]);
+
+        return true;
+    }
+
+    private function guardActiveContract(Employee $employee): bool
+    {
+        if (!$employee->hasActiveContract()) return false;
+
+        $this->dispatch('alert', ['type'    => 'warning', 'message' => 'Empleado tiene un contrato activo',]);
+
+        return true;
+    }
+
 }

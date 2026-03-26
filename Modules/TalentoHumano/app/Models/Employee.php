@@ -86,4 +86,27 @@ class Employee extends Model
     {
         return $this->belongsTo(Destination::class, 'destination_id');
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class, 'employee_id');
+    }
+
+    // --- Métodos de negocio ---
+
+    /**
+     * Indica si el empleado está activo.
+     */
+    public function isActive(): bool
+    {
+        return (bool) $this->status;
+    }
+
+    /**
+     * Indica si el empleado tiene al menos un contrato activo.
+     */
+    public function hasActiveContract(): bool
+    {
+        return $this->contracts()->where('status', true)->exists();
+    }
 }

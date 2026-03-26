@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Modules\TalentoHumano\App\Livewire\AcademicInfoManager;
+use Modules\Talentohumano\App\Livewire\ContractManager;
 use Modules\Talentohumano\App\Livewire\DemographicDataManager;
 use Modules\Talentohumano\App\Livewire\Employees;
 use Modules\TalentoHumano\App\Livewire\EvaluationManager;
@@ -170,5 +171,6 @@ class TalentoHumanoServiceProvider extends ServiceProvider
         Livewire::component('talentohumano.academic-infos', AcademicInfoManager::class);
         Livewire::component('talentohumano.evaluations', EvaluationManager::class);
         Livewire::component('talentohumano.demographic-data', DemographicDataManager::class);
+        Livewire::component('talentohumano.contracts', ContractManager::class);
     }
 }
