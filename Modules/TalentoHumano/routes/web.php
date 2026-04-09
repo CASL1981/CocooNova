@@ -18,4 +18,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ruta para adicionar información personal y educación del empleado
     Route::get('manage-contract', [ContractController::class, 'manageContract'])->name('talentohumano.manage-contract')
     ->middleware('canView:contracts');
+
+    Route::get('contract/{contract}/pdf', [ContractController::class, 'showContract'])->name('contract.pdf');
 });

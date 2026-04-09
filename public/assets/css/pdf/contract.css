@@ -1,0 +1,107 @@
+@page {
+    margin: 30mm 25mm 15mm 25mm;        
+}
+
+body {
+    font-family: "Verdana", sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+}
+
+body > table:first-of-type {
+margin-top: 10px !important; /* controla el espacio real */
+}
+
+/* HEADER */
+header {
+    position: fixed;
+    top: -70px;
+    left: 0px;
+    right: 0px;
+    height: 100px;
+}
+
+p {
+    line-height: 1.5 !important;
+    font-size: 18px !important;
+}
+
+.header img {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+/* FOOTER REAL corregido */
+footer {
+    position: fixed;
+    bottom: -10mm;     /* antes -60px o -180px → causaba el hueco */
+    left: 0;
+    right: 0;
+    height: 12mm;
+    text-align: right;
+    font-size: 11px;
+}
+
+/* Elimina espacios inesperados en el contenido */
+table, p, div {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Firma y bloques */
+.firma-section {
+    margin-top: 20px; /* antes 60px → causaba hueco enorme */
+}
+
+.block {
+    margin-bottom: 35px; /* antes 80px */
+}
+
+.title-firma {
+    margin-bottom: 25px; /* antes 60px */
+}
+
+.bordesuperior {
+    border-top: 0.1px solid black;
+}
+
+.bordeinferior {
+    border-bottom: 0.1px solid black;
+}
+
+.content {
+    margin-top: 120px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 11px;
+    color: #333;
+}
+
+.page-number:before {
+    content: counter(page);
+}
+
+.total-pages:before {
+    content: counter(pages);
+}
+
+body {
+    /* IMPORTANTE — evita romper el cálculo del total */
+    overflow: visible !important;
+    position: static !important;
+}

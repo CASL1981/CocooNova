@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('humantalent_contracts', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique()->comment('Identificador único del contrato');
             $table->foreignId('employee_id')->constrained('humantalent_employees')->cascadeOnDelete()->comment('Id del empleado al que pertenece la evaluación');
             $table->string('identification', 10)->comment('Número de identificación del contrato');
             $table->string('full_name', 150)->comment('Nombre completo del empleado');
@@ -22,11 +23,13 @@ return new class extends Migration
             $table->string('observations', 200)->nullable()->comment('Observaciones sobre el contrato');
             $table->string('city', 100)->nullable()->comment('Ciudad donde desempeña el contrato');
             $table->string('type', 50)->nullable()->comment('Tipo de contrato');
+            $table->string('position', 100)->nullable()->comment('Cargo que desempeña el empleado');
             $table->string('probationary_period', 100)->nullable()->comment('Período de prueba en meses');
             $table->decimal('salary', 10, 2)->nullable()->comment('Salario del contrato');
             $table->string('work_schedule', 100)->nullable()->comment('Horario de trabajo del contrato');
             $table->string('reason_leaving', 200)->nullable()->comment('Motivo de terminación del contrato');
             $table->string('destination', 200)->nullable()->comment('Centro de costos o destino del contrato');
+            $table->string('job', 100)->nullable()->comment('Labor desempeñada');
             $table->boolean('status')->default(true)->comment('Estado del contrato');
             $table->integer('period')->comment('Período del contrato');
             $table->integer('year')->comment('Año del contrato');

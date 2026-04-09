@@ -221,6 +221,8 @@
                     Livewire.dispatch('doubleItem')
                 }});
             });
+
+            
         });
     </script>
 

@@ -17,7 +17,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\TalentoHumano\\": "app/",
+            "Modules\\TalentoHumano\\": "",
+            "Modules\\TalentoHumano\\App\\": "app/",
             "Modules\\TalentoHumano\\Database\\Factories\\": "database/factories/",
             "Modules\\TalentoHumano\\Database\\Seeders\\": "database/seeders/"
         }

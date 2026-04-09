@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
@@ -33,5 +34,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Model::preventLazyLoading(! app()->isProduction());
+
+        Carbon::setLocale('es');
+        setlocale(LC_TIME, 'es_ES.UTF-8');
     }
 }

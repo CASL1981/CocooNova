@@ -67,8 +67,15 @@
                 </div>
                 <div class="form-group col-md-2 mb-0">
                     <x-form.label for="form.format">Formato</x-form.label>
-                    <x-form.input wire:model.defer="form.format" id="form.format" />
+                    <x-form.select wire:model.defer="form.format" id="form.format"
+                        :options="$contractType">
+                    </x-form.select>
                     <x-form.input-error for="form.format"/>
+                </div>
+                <div class="form-group col-md-12 mb-0">
+                    <x-form.label for="form.job">Labor Contratada</x-form.label>
+                    <x-form.input wire:model.defer="form.job" id="form.job" />
+                    <x-form.input-error for="form.job"/>
                 </div>
                 <div class="form-group col-md-12 mb-0">
                     <x-form.label for="form.observations">Observaciones</x-form.label>

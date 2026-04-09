@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\TalentoHumano\App\Exports;
+namespace Modules\TalentoHumano\app\Exports;
 
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;

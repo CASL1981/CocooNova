@@ -21,6 +21,7 @@ class ContractSeeder extends Seeder
                     'employee_id' => $employee->id,
                     'identification' => $employee->identification,
                     'full_name' => $employee->full_name,
+                    'position' => $employee->position,
                     ]);
         });
     }

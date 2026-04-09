@@ -6,9 +6,9 @@ use App\Traits\WithCrudOperations;
 use App\Traits\WithTableOperations;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Modules\TalentoHumano\App\Enums\ContractType;
 use Modules\Talentohumano\App\Livewire\Forms\ContractForm;
 use Modules\TalentoHumano\App\Models\Contract;
-use Modules\TalentoHumano\App\Models\Employee;
 
 class ContractManager extends Component
 {
@@ -19,6 +19,8 @@ class ContractManager extends Component
     public ContractForm $form;
 
     public $employees;
+
+    public $contractType = [];
 
     public $showActive = true; // Nueva propiedad para controlar la visualización de contratos activos/inactivos
 
@@ -34,6 +36,7 @@ class ContractManager extends Component
 
         $this->exportable = 'Modules\TalentoHumano\App\Exports\ContractExport';
         $this->model      = 'Modules\TalentoHumano\App\Models\Contract';
+        $this->contractType = ContractType::toSelectArray(); // Convierte el enum a un array para usar en un select
     }
     
     public function render()
@@ -91,7 +94,7 @@ class ContractManager extends Component
         }
     }
 
-    public function detaillContract(): mixed
+    public function detailContract(): mixed
     {
         can('contracts update');
 
@@ -107,6 +110,18 @@ class ContractManager extends Component
         $this->selectAll = false;
 
         return $this->dispatch('alert', ['type' => 'warning', 'message' => 'Contrato no se encuentra activo']);
+    }
+
+    public function getPDFContract()
+    {
+        can('contracts read');
+        
+        $contract = Contract::with('employee')->findOrFail($this->selected_id);
+        
+        // Emitir evento para abrir el PDF en una nueva pestaña
+        $this->dispatch('open-contract-pdf', url: route('contract.pdf', [
+            'contract' => $contract->uuid,
+        ]));
     }
 }
         

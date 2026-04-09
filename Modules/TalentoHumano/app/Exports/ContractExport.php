@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\TalentoHumano\App\Exports;
+namespace Modules\TalentoHumano\app\Exports;
 
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -29,7 +29,9 @@ class ContractExport implements FromCollection, ShouldAutoSize, WithHeadings
     public function collection(): mixed
     {
         return $this->contracts ?: Contract::select([
-            'identification', 'full_name', 'hiring_date', 'format', 'observations', 'status', 'period', 'year'
+            'identification', 'full_name', 'hiring_date', 'termination_date', 'format', 'observations',
+            'city', 'type', 'probationary_period', 'salary', 'work_schedule', 'status', 'period', 'year',
+            'reason_leaving', 'destination'
             ])->get();
     }
 
@@ -42,11 +44,19 @@ class ContractExport implements FromCollection, ShouldAutoSize, WithHeadings
             'Identificación', 
             'Nombre Completo', 
             'Fecha de Contratación', 
+            'Fecha de Terminación',
             'Formato', 
-            'Observaciones', 
+            'Observaciones',
+            'Ciudad', 
+            'Tipo',
+            'Período de Prueba',
+            'Salario',
+            'Horario de Trabajo',
             'Estado', 
             'Período', 
-            'Año'
+            'Año',
+            'Motivo de Salida',
+            'Centro Costos'
         ];
     }
 }

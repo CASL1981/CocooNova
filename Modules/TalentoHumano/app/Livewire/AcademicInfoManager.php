@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\TalentoHumano\App\Livewire;
+namespace Modules\TalentoHumano\app\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;

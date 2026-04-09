@@ -160,6 +160,7 @@ class Employees extends Component
             'employee_id' => $employee->id,
             'identification' => $employee->identification,
             'full_name' => "{$employee->first_name} {$employee->last_name}",
+            'position' => $employee->position,
             'hiring_date' => now(),
             'period' => Carbon::now()->month,
             'year' => Carbon::now()->year,

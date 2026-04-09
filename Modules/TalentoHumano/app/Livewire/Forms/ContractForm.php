@@ -5,6 +5,7 @@ namespace Modules\Talentohumano\App\Livewire\Forms;
 use Livewire\Form;
 use Livewire\Attributes\Validate;
 use Illuminate\Validation\Rule;
+use Modules\TalentoHumano\App\Enums\ContractType;
 use Modules\TalentoHumano\App\Models\Contract;
 
 class ContractForm extends Form
@@ -41,6 +42,9 @@ class ContractForm extends Form
     #[Validate('nullable|string|max:50')]
     public $type = '';
 
+    #[Validate('required|string|max:100')]
+    public $position = '';
+
     #[Validate('nullable|string|max:100')]
     public $probationary_period = '';
 
@@ -55,6 +59,9 @@ class ContractForm extends Form
 
     #[Validate('nullable|string|max:200')]
     public $destination = '';
+
+    #[Validate('nullable|string|max:100')]
+    public $job = '';
 
     #[Validate('boolean')]
     public $status = true;
@@ -81,6 +88,7 @@ class ContractForm extends Form
             'observations' => 'observaciones',
             'city' => 'ciudad',
             'type' => 'tipo de contrato',
+            'position' => 'cargo',
             'probationary_period' => 'período de prueba',
             'salary' => 'salario',
             'work_schedule' => 'horario de trabajo',
@@ -89,6 +97,7 @@ class ContractForm extends Form
             'status' => 'estado',
             'period' => 'período',
             'year' => 'año',
+            'job' => 'Labor desempeñada',
         ];
     }
 
@@ -103,10 +112,11 @@ class ContractForm extends Form
         $this->full_name                = $contract->full_name ?? '';
         $this->hiring_date              = $contract->hiring_date->format('Y-m-d');
         $this->termination_date         = $contract->termination_date?->format('Y-m-d');
-        $this->format                   = $contract->format ?? '';
+        $this->format                   = $contract->format instanceof ContractType ? $contract->format->value : $contract->format;;
         $this->observations             = $contract->observations ?? '';
         $this->city                     = $contract->city ?? '';
         $this->type                     = $contract->type ?? '';
+        $this->position                 = $contract->position ?? '';
         $this->probationary_period      = $contract->probationary_period ?? '';
         $this->salary                   = $contract->salary;
         $this->work_schedule            = $contract->work_schedule ?? '';
@@ -115,5 +125,6 @@ class ContractForm extends Form
         $this->status                   = $contract->status ?? '';
         $this->period                   = $contract->period ?? '';
         $this->year                     = $contract->year ?? '';
+        $this->job                      = $contract->job ?? '';
     }
 }
