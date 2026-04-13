@@ -55,7 +55,7 @@
                 </ul>
                 <div class="tab-content" id="pills-tabContent-1">
                     <div class="tab-pane fade show active" id="pills-social-security" role="tabpanel" aria-labelledby="pills-social-security-tab-fill">
-                        Detalle
+                        <livewire:talentohumano.social-security :contractId="$contract->id"/>
                     </div>
                     {{-- <div class="tab-pane fade" id="pills-profile-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
                         <livewire:talentohumano.work-experiences :employeeId="$contract->id"/>

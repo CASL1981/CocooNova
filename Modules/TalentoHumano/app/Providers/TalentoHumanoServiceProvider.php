@@ -11,6 +11,7 @@ use Modules\Talentohumano\App\Livewire\DemographicDataManager;
 use Modules\Talentohumano\App\Livewire\Employees;
 use Modules\TalentoHumano\App\Livewire\EvaluationManager;
 use Modules\Talentohumano\App\Livewire\FamilyGroup;
+use Modules\Talentohumano\App\Livewire\SocialSecurityManager;
 use Modules\Talentohumano\App\Livewire\WorkExperiencesManager;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -172,5 +173,6 @@ class TalentoHumanoServiceProvider extends ServiceProvider
         Livewire::component('talentohumano.evaluations', EvaluationManager::class);
         Livewire::component('talentohumano.demographic-data', DemographicDataManager::class);
         Livewire::component('talentohumano.contracts', ContractManager::class);
+        Livewire::component('talentohumano.social-security', SocialSecurityManager::class);
     }
 }

@@ -112,7 +112,7 @@ class ContractForm extends Form
         $this->full_name                = $contract->full_name ?? '';
         $this->hiring_date              = $contract->hiring_date->format('Y-m-d');
         $this->termination_date         = $contract->termination_date?->format('Y-m-d');
-        $this->format                   = $contract->format instanceof ContractType ? $contract->format->value : $contract->format;;
+        $this->format                   = $contract->format instanceof ContractType ? $contract->format->value : $contract->format;
         $this->observations             = $contract->observations ?? '';
         $this->city                     = $contract->city ?? '';
         $this->type                     = $contract->type ?? '';
